@@ -15,49 +15,49 @@
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="52.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/BAGUIO1.png" />
                </image>
             </ImageView>
             <ImageView fx:id="batanesImage" fitHeight="224.0" fitWidth="226.0" layoutX="291.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" onMouseClicked="#handleBatanesClick">
                <image>
-                  <Image url="@../../../images/batanes.png" />
+                  <Image url="@../../../images/BATANES1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="523.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/BATANGAS1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="758.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/BOHOL1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="51.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/CEBU1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="290.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/PALAWAN1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="522.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/SIARGO1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="757.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/baguio.png" />
+                  <Image url="@../../../images/ZAMBALES1.png" />
                </image>
             </ImageView>
          </children>
