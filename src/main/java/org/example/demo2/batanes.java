@@ -21,24 +21,13 @@ public class batanes implements Initializable {
     private ComboBox<String> lunchComboBox;
     @FXML
     private ComboBox<String> dinnerComboBox;
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Add items to the hotel ComboBox
         hotelComboBox.getItems().addAll("Fundacion Pacita Batanes Nature Lodge", "Batanes Resort Hotel", "Amboy Hometel");
-
-        // Add items to the top attraction ComboBox
         topattractionComboBox.getItems().addAll("Vayang Rolling Hills", "Basco Lighthouse","Nakabuang ArchZ");
-
         activitiesComboBox.getItems().addAll("Biking around Basco", "Hiking to Mount Iraya","Island Hopping to Sabtang Island");
-
         breakfastComboBox.getItems().addAll("Ivatan Platter", "Daing na Dibang","Tapa with Fried Rice");
-
         lunchComboBox.getItems().addAll("Uvud Balls", "Lunis (Ivatan Adobo)","Coconut Crab");
-
         dinnerComboBox.getItems().addAll("Grilled Flying Fish", "Yellow Rice with Local Herbs","Beef Stew with Vegetables");
-
     }
 }
