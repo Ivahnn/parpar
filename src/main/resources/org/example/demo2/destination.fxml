@@ -27,7 +27,7 @@
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="523.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
                        onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
                <image>
-                  <Image url="@../../../images/BATANES1.png" />
+                  <Image url="@../../../images/BATANGAS1.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="758.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"

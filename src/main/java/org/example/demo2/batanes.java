@@ -11,16 +11,13 @@ public class batanes implements Initializable {
 
     @FXML
     private ComboBox<String> hotelComboBox;
-
     @FXML
     private ComboBox<String> topattractionComboBox;
     @FXML
     private ComboBox<String> activitiesComboBox;
     @FXML
-
     private ComboBox<String> breakfastComboBox;
     @FXML
-
     private ComboBox<String> lunchComboBox;
     @FXML
     private ComboBox<String> dinnerComboBox;
