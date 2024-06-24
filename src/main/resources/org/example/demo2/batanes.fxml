@@ -16,11 +16,15 @@
     <children>
         <AnchorPane prefHeight="645.0" prefWidth="470.0" style="-fx-background-color: NAVAJOWHITE;">
             <children>
+
                 <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../images/ph.png" />
+                        <Image url="@../../../images/backspace1.png" />
                     </image>
                 </ImageView>
+
+
+
                 <Label layoutX="33.0" layoutY="46.0" text="Traveler's information">
                     <font>
                         <Font name="Arial Black" size="30.0" />

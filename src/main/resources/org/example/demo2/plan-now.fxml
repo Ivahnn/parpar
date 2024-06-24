@@ -10,13 +10,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="644.0" prefWidth="1011.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.PlanNowController">
 
    <children>
-      <AnchorPane prefHeight="645.0" prefWidth="470.0" style="-fx-background-color: NAVAJOWHITE;">
+      <AnchorPane prefHeight="661.0" prefWidth="470.0" style="-fx-background-color: NAVAJOWHITE;">
          <children>
             <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,7 +84,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="469.0" prefHeight="646.0" prefWidth="542.0" style="-fx-background-color: midnightblue;">
+      <AnchorPane layoutX="469.0" prefHeight="661.0" prefWidth="542.0" style="-fx-background-color: midnightblue;">
          <children>
             <Accordion layoutX="46.0" layoutY="373.0" />
          </children>

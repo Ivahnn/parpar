@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,58 +9,98 @@
    <children>
       <AnchorPane prefHeight="645.0" prefWidth="1011.0" style="-fx-background-color: NAVAJOWHITE;">
          <children>
+
             <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/ph.png" />
+                  <Image url="@../../../images/backspace1.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="52.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+            <ImageView fx:id="baguioImage" fitHeight="224.0" fitWidth="226.0" layoutX="52.0" layoutY="88.0" onMouseClicked="#handleBaguioClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/BAGUIO1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fx:id="batanesImage" fitHeight="224.0" fitWidth="226.0" layoutX="291.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" onMouseClicked="#handleBatanesClick">
+
+
+
+            <ImageView fx:id="batanesImage" fitHeight="224.0" fitWidth="226.0" layoutX="291.0" layoutY="88.0" onMouseClicked="#handleBatanesClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/BATANES1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="523.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+
+            <ImageView fx:id="batangasImage" fitHeight="224.0" fitWidth="226.0" layoutX="523.0" layoutY="88.0" onMouseClicked="#handleBatangasClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/BATANGAS1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="758.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+
+            <ImageView fx:id="boholImage" fitHeight="224.0" fitWidth="226.0" layoutX="758.0" layoutY="88.0" onMouseClicked="#handleBoholClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/BOHOL1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="51.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+
+            <ImageView fx:id="cebuImage" fitHeight="224.0" fitWidth="226.0" layoutX="51.0" layoutY="334.0" onMouseClicked="#handleCebuClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/CEBU1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="290.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+            <ImageView fx:id="palawanImage" fitHeight="224.0" fitWidth="226.0" layoutX="290.0" layoutY="334.0" onMouseClicked="#handlePalawanClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/PALAWAN1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="522.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+
+
+            <ImageView fx:id="siargaoImage" fitHeight="224.0" fitWidth="226.0" layoutX="522.0" layoutY="334.0" onMouseClicked="#handleSiargaoClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/SIARGO1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
-            <ImageView fitHeight="224.0" fitWidth="226.0" layoutX="757.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true"
-                       onMouseEntered="#hoverEnter" onMouseExited="#hoverExit">
+
+
+
+            <ImageView fx:id="zambalesImage" fitHeight="224.0" fitWidth="226.0" layoutX="757.0" layoutY="334.0" onMouseClicked="#handleZambalesClick" onMouseEntered="#hoverEnter" onMouseExited="#hoverExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/ZAMBALES1.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
          </children>
       </AnchorPane>
