@@ -57,49 +57,41 @@ public class siargao implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "Nay Palad Hideaway", "Siargao Bleu Resort and Spa", "Isla Cabana Resort", "Kawayan Siargao Resort", "Romantic Beach Villas"
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Cloud 9", "Sugba Lagoon", "Magpupungko Rock Pools", "Naked Island", "Guyam Island"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Surfing at Cloud 9", "Island Hopping Tour", "Exploring Sugba Lagoon",
+                    "Swimming in Magpupungko Rock Pools", "Rope Swinging at Maasin River"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Danggit Lamayo at Taboan Market", "Chorizo de Cebu at Larsian BBQ", "Puto Maya with Sikwate",
+                    "Torta Dried Fish and Rice Cake", "Pusô (Hanging Rice) with Lechon"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Lechon at Rico's Lechon", "Buwad (Dried Fish) at Taboan Market", "Seafood at STK Ta Bay!",
+                    "Ngohiong (Cebuano Spring Rolls) at Larsian BBQ", "Cebuano Tamales"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Lechon Belly at CnT Lechon", "Adobo sa Atsuete at Kusina Uno", "Baked Scallops at Lantaw Floating Native Restaurant",
+                    "Grilled Fish at Choobi Choobi", "Crispy Pata at AA Barbecue"
             );
         });
 

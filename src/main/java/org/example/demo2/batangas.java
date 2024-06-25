@@ -57,49 +57,39 @@ public class batangas implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "Club Punta Fuego", "Acuatico Beach Resort & Hotel", "The Farm at San Benito", "Taal Vista Hotel", "Vivere Azure"
+
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Taal Volcano and Taal Lake", "Anilao", "Masasa Beach", "Fortune Island", "Mount Batulao"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Scuba Diving in Anilao", "Hiking Taal Volcano", "Beach Hopping in Laiya",
+                    "Island Hopping to Fortune Island", "Trekking Mt. Batulao"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Bulalo (Beef Bone Marrow Soup)", "Tamales Batangas", "Panutsa (Sugar Cane Sweet)", "Kapeng Barako", "Goto Batangas"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Adobo sa Dilaw", "Lomi", "Sinigang na Baboy sa Bayabas", "Sinaing na Tulingan", "Bulalo Steak"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Adobong Dilaw na Manok", "Maliputo", "Sinigang na Hipon", "Batangas Goto", "Batangas Express"
             );
         });
 

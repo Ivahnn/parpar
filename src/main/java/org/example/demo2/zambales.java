@@ -57,49 +57,40 @@ public class zambales implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "The Lighthouse Marina Resort", "Subic Grand Seas Resort", "Vista Marina Hotel & Resort",
+                    "White Rock Waterpark and Beach Hotel", "Rama International Beach Resort"
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Anawangin Cove", "Nagsasa Cove", "Capones Island", "Mount Pinatubo", "Subic Bay Freeport Zone"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Hiking to Anawangin Cove", "Island Hopping to Capones Island", "Trekking Mount Pinatubo",
+                    "Snorkeling in Subic Bay", "Camping at Nagsasa Cove"
+
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Longganisa Zambaleno", "Tapsilog", "Daing na Bangus", "Pancit Batil Patong", "Churros con Tsokolate"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Sinigang na Maliputo", "Adobo sa Gata", "Grilled Pusit", "Kilawin na Tanigue", "Bopis"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Inihaw na Baboy", "Pancit Lomi", "Chicharon Bulaklak", "Kare-Kare", "Lechon Kawali"
             );
         });
 

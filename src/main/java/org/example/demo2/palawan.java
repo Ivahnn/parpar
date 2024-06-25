@@ -57,49 +57,39 @@ public class palawan implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "Amanpulo", "El Nido Resorts Pangulasian Island", "Two Seasons Coron Island Resort & Spa",
+                    "Club Paradise Palawan", "Lagen Island Resort"
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Puerto Princesa Subterranean River National Park", "Kayangan Lake", "Big Lagoon", "Small Lagoon", "Nacpan Beach"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Island Hopping in El Nido", "Underground River Tour", "Snorkeling and Diving in Coron",
+                    "Kayaking in Big Lagoon", "Swimming in Kayangan Lake"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Tamilok", "Tapyas Breakfast", "Crocodile Sisig", "Chao Long", "Pandikit Rice"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Sizzling Tangigue Steak", "Lato Seaweed Salad", "Chicken Binakol", "Lamb Lechon", "Adobong Pusit"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Chaolongan", "Noodles with Sauteed Vegetables", "Pancit Molo", "Paklay", "Tamilok"
             );
         });
 

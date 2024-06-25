@@ -57,56 +57,37 @@ public class baguio implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "The Manor at Camp John Hay",
-                    "Le Monet Hotel",
-                    "Microtel by Wyndham Baguio",
-                    "Hotel Elizabeth Baguio",
-                    "Azalea Hotels & Residences Baguio",
-                    "The Forest Lodge at Camp John Hay"
+                    "Fundacion Pacita Batanes Nature Lodge", "Pension Ivatan Hometel and Restaurant", "Bernardo's Hotel", "Batanes Seaside Lodge and Restaurant", "D' Islanders Hotel and Restaurant"
                     );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Burnham Park",
-                    "Mines View Park",
-                    "Camp John Hay",
-                    "The Mansion",
-                    "Baguio Cathedral"
+                    "Marlboro Hills (Racuh A Payaman)", "Basco Lighthouse", "Sabtang Island", "Valugan Boulder Beach", "Chamantad-Tinyan Viewpoint"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Boating at Burnham Park",
-                    "Horseback Riding at Wright Park",
-                    "Shopping at Baguio Public Market",
-                    "Strolling along Session Road",
-                    "Visiting the Night Market"
+                    "Biking around Basco", "Hiking Marlboro Hills", "Island Hopping to Sabtang and Itbayat", "Swimming at Homoron Blue Lagoon", "Exploring Ivana Port"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Strawberry Taho", "Sagada Coffee", "Longganisa Baguio", "Ube Jam", "Baguio Pandesal"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Pinikpikan", "Strawberry Salad", "Igado", "Baguio Vegetables Stir-Fry", "Adobo with Etag"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Cordillera Rice Wine", "Pine-smoked Pork", "Sinanglaw", "Grilled Trout", "Vegetable Tempura"
             );
         });
 

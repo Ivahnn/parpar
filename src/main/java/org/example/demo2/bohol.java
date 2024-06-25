@@ -57,49 +57,37 @@ public class bohol implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "The Bellevue Resort", "Amorita Resort", "Henann Resort Alona Beach", "Bohol Beach Club", "South Palms Resort Panglao"
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Chocolate Hills", "Tarsier Conservation Area", "Loboc River Cruise", "Hinagdanan Cave", "Panglao Island"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Scuba Diving and Snorkeling", "Chocolate Hills ATV Tour", "Loboc River Stand-Up Paddleboarding", "Firefly Watching Tour", "Island Hopping"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Sikwate and Puto Maya", "Budbud Kabog", "Binignit", "Chorizo de Bohol", "Tsokolate Tablea"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Chicken Halang-Halang", "Tinunuang Isda", "Pansit Boholano", "Sutukil", "Linabog"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Lechon Boholano", "Kinilaw", "Inun-unan", "Nilubihang Kagang", "Grilled Squid"
             );
         });
 

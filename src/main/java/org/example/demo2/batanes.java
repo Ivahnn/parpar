@@ -57,49 +57,46 @@ public class batanes implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "Fundacion Pacita Batanes Nature Lodge", "Pension Ivatan Hometel and Restaurant",
+                    "Bernardo's Hotel", "Batanes Seaside Lodge and Restaurant", "D' Islanders Hotel and Restaurant"
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Marlboro Hills (Racuh A Payaman)", "Basco Lighthouse", "Sabtang Island", "Valugan Boulder Beach",
+                    "Chamantad-Tinyan Viewpoint"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Biking around Basco", "Hiking Marlboro Hills", "Island Hopping to Sabtang and Itbayat",
+                    "Swimming at Homoron Blue Lagoon", "Exploring Ivana Port"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Tatus (Coconut Crab) at Honesty Coffee Shop", "Vunong (Flying Fish) at House of Dakay",
+                    "Uved Balls (Banana Heart Patties) near Mt. Iraya", "Turmeric Rice with Binungey (Rice Cake) at Chawa View Deck",
+                    "Lukon (Dried Flying Fish) with Ivatan Breakfast Spread at Chamantad-Tinyan Viewpoint"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Traditional Sinapot (Coconut Crab) Dish at Local Eateries", "Uved (Banana Heart) Soup at Savidug Village",
+                    "Lunis (Sun-Dried Fish) at Sabtang Island", "Yellow Rice with Luñis (Sun-Dried Fish) and Dibang (Flying Fish) at " +
+                            "Valugan Boulder Beach", "Vunes (Dried Gaby Leaves) Dish at Sabtang Island"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Coconut Crab (Tatus) Adobo at Magnfred's Place Batanes", "Grilled Flying Fish (Dibang) at Baletin Hometel",
+                    "Uved (Banana Heart) Soup at Novita House", "Traditional Vunong (Flying Fish) at Troy Lodge",
+                    "Lunis (Sun-Dried Fish) with Uved (Banana Heart) at D' Islanders Hotel and Restaurant"
             );
         });
 

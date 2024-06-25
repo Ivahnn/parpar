@@ -57,49 +57,39 @@ public class cebu implements Initializable {
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
-                    "Fundacion Pacita Batanes Nature Lodge",
-                    "Batanes Resort Hotel",
-                    "Amboy Hometel"
+                    "Shangri-La's Mactan Resort and Spa", "Crimson Resort and Spa Mactan",
+                    "Radisson Blu Cebu", "Marco Polo Plaza Cebu", "Plantation Bay Resort and Spa"
             );
         });
 
         executorService.submit(() -> {
             topattractionComboBox.getItems().addAll(
-                    "Vayang Rolling Hills",
-                    "Basco Lighthouse",
-                    "Nakabuang Arch"
+                    "Magellan’s Cross", "Basilica Minore del Santo Niño", "Taoist Temple", "Kawasan Falls", "Osmeña Peak"
             );
         });
 
         executorService.submit(() -> {
             activitiesComboBox.getItems().addAll(
-                    "Biking around Basco",
-                    "Hiking to Mount Iraya",
-                    "Island Hopping to Sabtang Island"
+                    "Island Hopping in Mactan", "Canyoneering at Kawasan Falls", "Diving in Malapascua",
+                    "Swimming with Whale Sharks in Oslob", "Hiking Osmeña Peak"
             );
         });
 
         executorService.submit(() -> {
             breakfastComboBox.getItems().addAll(
-                    "Ivatan Platter",
-                    "Daing na Dibang",
-                    "Tapa with Fried Rice"
+                    "Danggit with Fried Rice and Egg", "Puto Maya with Sikwate", "Torta", "Balbacua", "Cebu Longganisa"
             );
         });
 
         executorService.submit(() -> {
             lunchComboBox.getItems().addAll(
-                    "Uvud Balls",
-                    "Lunis (Ivatan Adobo)",
-                    "Coconut Crab"
+                    "Lechon", "Sinigang na Baboy sa Sampalok", "Pochero", "Ginabot", "Sutukil"
             );
         });
 
         executorService.submit(() -> {
             dinnerComboBox.getItems().addAll(
-                    "Grilled Flying Fish",
-                    "Yellow Rice with Local Herbs",
-                    "Beef Stew with Vegetables"
+                    "Baked Scallops", "Baked Talaba", "Ginataang Langka with Pork", "Bam-i", "Adobong Pusit"
             );
         });
 
