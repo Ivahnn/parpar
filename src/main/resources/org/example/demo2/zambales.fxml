@@ -12,9 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0"
-            prefWidth="1011.0" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.zambales">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.zambales">
     <children>
         <AnchorPane prefHeight="645.0" prefWidth="470.0" style="-fx-background-color: NAVAJOWHITE;">
             <children>
@@ -43,7 +41,7 @@
                         <Font name="System Bold" size="19.0" />
                     </font>
                 </Label>
-                <Button fx:id="printPdfButton" layoutX="123.0" layoutY="579.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="181.0" style="-fx-background-color: MIDNIGHTBLUE; -fx-background-radius: 25;" text="PRINT PDF" textFill="WHITE" onAction="#handlePrintPdfButton">
+                <Button fx:id="printPdfButton" layoutX="123.0" layoutY="579.0" mnemonicParsing="false" onAction="#handlePrintPdfButton" prefHeight="38.0" prefWidth="181.0" style="-fx-background-color: MIDNIGHTBLUE; -fx-background-radius: 25;" text="PRINT PDF" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
@@ -51,18 +49,18 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <ComboBox fx:id="hotelComboBox" layoutX="34.0" layoutY="203.0" prefHeight="34.0" prefWidth="259.0" promptText="HOTEL"  style="-fx-font-weight: bold;"/>
-                <ComboBox fx:id="topattractionComboBox" layoutX="34.0" layoutY="305.0" prefHeight="34.0" prefWidth="259.0" promptText="TOP ATTRACTION"  style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="hotelComboBox" layoutX="34.0" layoutY="203.0" prefHeight="34.0" prefWidth="259.0" promptText="HOTEL" style="-fx-font-weight: bold;" />
+                <ComboBox fx:id="topattractionComboBox" layoutX="34.0" layoutY="305.0" prefHeight="34.0" prefWidth="259.0" promptText="TOP ATTRACTION" style="-fx-font-weight: bold;" />
                 <ComboBox fx:id="activitiesComboBox" layoutX="34.0" layoutY="360.0" prefHeight="34.0" prefWidth="259.0" promptText="ACTIVITIES WITH TIME" style="-fx-font-weight: bold;" />
                 <ComboBox fx:id="breakfastComboBox" layoutX="68.0" layoutY="443.0" prefHeight="34.0" prefWidth="259.0" promptText="BREAKFAST" style="-fx-font-weight: bold;" />
-                <ComboBox fx:id="lunchComboBox" layoutX="68.0" layoutY="492.0" prefHeight="34.0" prefWidth="259.0" promptText="LUNCH"  style="-fx-font-weight: bold;"/>
-                <ComboBox fx:id="dinnerComboBox" layoutX="68.0" layoutY="537.0" prefHeight="34.0" prefWidth="259.0" promptText="DINNER"  style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="lunchComboBox" layoutX="68.0" layoutY="492.0" prefHeight="34.0" prefWidth="259.0" promptText="LUNCH" style="-fx-font-weight: bold;" />
+                <ComboBox fx:id="dinnerComboBox" layoutX="68.0" layoutY="537.0" prefHeight="34.0" prefWidth="259.0" promptText="DINNER" style="-fx-font-weight: bold;" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="469.0" prefHeight="646.0" prefWidth="542.0" style="-fx-background-color: midnightblue;">
-            <children>
-                <Accordion layoutX="46.0" layoutY="373.0" />
-            </children>
-        </AnchorPane>
+      <ImageView fitHeight="646.0" fitWidth="524.0" layoutX="470.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/ZAMBAONGA FRAME.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

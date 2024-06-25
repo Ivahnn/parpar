@@ -106,6 +106,19 @@ public class ThirdPageController {
 
     }
 
+    public void handleaboutLabelClick(javafx.scene.input.MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("about.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
 
 

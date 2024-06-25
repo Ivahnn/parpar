@@ -34,20 +34,6 @@ public class PlanNowController {
     @FXML
     private MediaView mediaView;
 
-    private MediaPlayer mediaPlayer;
-
-    @FXML
-    public void initialize() {
-        backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> goBack());
-
-        // Example media file, replace with your actual video file path
-        String mediaFile = getClass().getResource("/org/example/demo2/palawan1.mp4").toString();
-        Media media = new Media(new File(mediaFile).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-
-        mediaPlayer.setAutoPlay(true); // Auto-play the video
-    }
 
     private void goBack() {
         try {
@@ -63,6 +49,6 @@ public class PlanNowController {
             e.printStackTrace();
         }
     }
-
-    // Define other event handlers and methods as needed
 }
+
+

@@ -94,7 +94,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <Label layoutX="519.0" layoutY="13.0" prefHeight="27.0" prefWidth="93.0" text="ABOUT US">
+                  <Label layoutX="519.0" layoutY="13.0" prefHeight="27.0"  onMouseClicked="#handleaboutLabelClick" prefWidth="93.0" text="ABOUT US">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
