@@ -14,12 +14,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 public class baguio implements Initializable {
 
@@ -50,15 +53,20 @@ public class baguio implements Initializable {
     @FXML
     private ImageView backButton; // Corrected annotation
 
+    @FXML
+    private MediaView mediaView;
+
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        playVideo();
+
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
                     "Fundacion Pacita Batanes Nature Lodge", "Pension Ivatan Hometel and Restaurant", "Bernardo's Hotel", "Batanes Seaside Lodge and Restaurant", "D' Islanders Hotel and Restaurant"
-                    );
+            );
         });
 
         executorService.submit(() -> {
@@ -143,6 +151,18 @@ public class baguio implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void playVideo() {
+        String videoPath = getClass().getResource("/images/BAGUIO FRAME.mp4").toExternalForm();
+        Media media = new Media(videoPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setOnEndOfMedia(() -> {
+            mediaPlayer.seek(Duration.ZERO);
+            mediaPlayer.play();
+        });
+        mediaPlayer.play();
     }
 
     // Shutdown the executor service when done to free up resources

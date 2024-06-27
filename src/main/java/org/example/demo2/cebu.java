@@ -20,6 +20,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 public class cebu implements Initializable {
 
@@ -47,6 +51,10 @@ public class cebu implements Initializable {
     @FXML
     private DatePicker durationField;
 
+
+    @FXML
+    private MediaView mediaView;
+
     @FXML
     private ImageView backButton; // Corrected annotation
 
@@ -54,6 +62,7 @@ public class cebu implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        playVideo();
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
@@ -146,6 +155,21 @@ public class cebu implements Initializable {
             e.printStackTrace();
         }
     }
+    private void playVideo() {
+        String videoPath = getClass().getResource("/images/CEBU FRAME.mp4").toExternalForm();
+        Media media = new Media(videoPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setOnEndOfMedia(() -> {
+            mediaPlayer.seek(Duration.ZERO);
+            mediaPlayer.play();
+        });
+        mediaPlayer.play();
+    }
+
+
+
+
 
     // Shutdown the executor service when done to free up resources
     public void shutdown() {

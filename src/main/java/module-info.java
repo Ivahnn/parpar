@@ -5,6 +5,8 @@ module org.example.demo2 {
     requires layout;
     requires kernel;
     requires javafx.media;
+    requires javafx.graphics;
+
 
 
     opens org.example.demo2 to javafx.fxml;

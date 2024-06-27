@@ -17,7 +17,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
 public class HelloController {
 
     @FXML
@@ -25,6 +24,9 @@ public class HelloController {
 
     @FXML
     private PasswordField signupPasswordField;
+
+    @FXML
+    private PasswordField passwordField; // This is the re-entered password field
 
     @FXML
     private TextField emailField;
@@ -37,11 +39,26 @@ public class HelloController {
         String username = usernameField.getText().trim();
         String email = emailField.getText().trim();
         String password = signupPasswordField.getText();
+        String rePassword = passwordField.getText(); // Get the re-entered password
 
         // Perform validation (e.g., check if fields are not empty)
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || rePassword.isEmpty()) {
             // Handle empty fields (show an error message, etc.)
             System.out.println("Please fill in all fields.");
+            return;
+        }
+
+        // Check if email contains '@'
+        if (!email.contains("@")) {
+            // Handle invalid email (show an error message, etc.)
+            System.out.println("Please enter a valid email address dont forget to add @ ");
+            return;
+        }
+
+        // Check if password and re-password match
+        if (!password.equals(rePassword)) {
+            // Handle password mismatch (show an error message, etc.)
+            System.out.println("Passwords do not match.");
             return;
         }
 
@@ -60,7 +77,7 @@ public class HelloController {
 
         Stage stage = new Stage();
         stage.setScene(new Scene(secondPage));
-        stage.setTitle("Welcome to the Second Page!");
+        stage.setTitle("Welcome to login");
         stage.show();
         Stage signUpStage = (Stage) signupButton.getScene().getWindow();
         signUpStage.close();
