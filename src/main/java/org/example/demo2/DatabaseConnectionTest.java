@@ -62,3 +62,11 @@ public class DatabaseConnectionTest {
         }
     }
 }
+
+//CREATE TABLE Users (
+//    userId INT PRIMARY KEY AUTO_INCREMENT,
+//    username NVARCHAR(50),
+//    password NVARCHAR(50),
+//    email NVARCHAR(50) -- Removed the trailing comma
+//);
+//CREATE TABLE Itinerary (     id INT PRIMARY KEY AUTO_INCREMENT,     userId INT,     hotel NVARCHAR(100),     topAttraction NVARCHAR(100),     activity NVARCHAR(100),     breakfast NVARCHAR(100),     lunch NVARCHAR(100),     dinner NVARCHAR(100),     duration DATE,     FOREIGN KEY (userId) REFERENCES Users(userId) );
