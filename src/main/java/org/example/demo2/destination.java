@@ -11,6 +11,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class destination {
+
+    public String username;
+    public void setUsername(String username){
+        this.username = username;
+    }
+
     @FXML
     private ImageView backButton;
 
@@ -121,6 +127,11 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("palawan.fxml"));
             Parent root = loader.load();
+
+            palawan palawan = loader.getController();
+
+            palawan.setUsername(username);
+
             Stage stage = (Stage) palawanImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {

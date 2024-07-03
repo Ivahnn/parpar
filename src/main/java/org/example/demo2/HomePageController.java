@@ -16,10 +16,10 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class HomePageController {
-
+    private String username;
     public void setUsername(String username) {
+        this.username = username;
     }
-
 
     @FXML
     private ImageView imageView;
@@ -85,7 +85,10 @@ public class HomePageController {
     @FXML
     public void handleDestinationLabelClick(javafx.scene.input.MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("destination.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
+            Parent root = loader.load();
+            destination destinationController = loader.getController();
+            destinationController.setUsername(username); // Pass the username here
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -97,15 +100,15 @@ public class HomePageController {
     }
 
     public void handleloginLabelClick(javafx.scene.input.MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene(root));
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        System.out.println("Hello, " + username + "!");
 
     }
 

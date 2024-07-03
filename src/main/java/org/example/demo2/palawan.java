@@ -29,6 +29,7 @@ import javafx.util.Duration;
 
 public class palawan implements Initializable {
 
+
     @FXML
     private ComboBox<String> hotelComboBox;
 
@@ -49,7 +50,14 @@ public class palawan implements Initializable {
 
     @FXML
     private TextField usernameField;
-
+    private String username;
+    public void setUsername(String username) {
+        this.username = username;
+        System.out.println("Username set to: " + username); // Add this debug statement
+        if (usernameField != null) {
+            usernameField.setText(username);
+        }
+    }
     @FXML
     private DatePicker durationField;
 
@@ -64,6 +72,9 @@ public class palawan implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playVideo();
+
+        usernameField.setText(username); // Verify that username is not empty here
+        System.out.println("Username field set to: " + usernameField.getText()); // Add this debug statement
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
