@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -10,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="644.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.zambales">
@@ -41,7 +43,7 @@
                         <Font name="System Bold" size="19.0" />
                     </font>
                 </Label>
-                <Button fx:id="printPdfButton" layoutX="123.0" layoutY="579.0" mnemonicParsing="false" onAction="#handlePrintPdfButton" prefHeight="38.0" prefWidth="181.0" style="-fx-background-color: MIDNIGHTBLUE; -fx-background-radius: 25;" text="PRINT PDF" textFill="WHITE">
+                <Button fx:id="printPdfButton" layoutX="123.0" layoutY="579.0" mnemonicParsing="false" onAction="#handlePrintPdfButton" prefHeight="38.0" prefWidth="181.0" style="-fx-background-color: MIDNIGHTBLUE; -fx-background-radius: 25;" text="SAVE" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
@@ -57,10 +59,10 @@
                 <ComboBox fx:id="dinnerComboBox" layoutX="68.0" layoutY="537.0" prefHeight="34.0" prefWidth="259.0" promptText="DINNER" style="-fx-font-weight: bold;" />
             </children>
         </AnchorPane>
-      <ImageView fitHeight="646.0" fitWidth="524.0" layoutX="470.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../images/ZAMBAONGA FRAME.png" />
-         </image>
-      </ImageView>
+        <MediaView fx:id="mediaView" layoutX="470.0">
+            <viewport>
+                <Rectangle2D height="650.0" width="525.0" />
+            </viewport>
+        </MediaView>
     </children>
 </AnchorPane>

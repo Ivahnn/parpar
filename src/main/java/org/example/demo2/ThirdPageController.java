@@ -30,9 +30,9 @@ public class ThirdPageController {
     private Label planNowLabel;
 
     private final Image[] images = {
-            new Image("file:src/main/resources/images/baguio.png"),
             new Image("file:src/main/resources/images/batanes.png"),
             new Image("file:src/main/resources/images/palawan.png"),
+            new Image("file:src/main/resources/images/baguio.png"),
             new Image("file:src/main/resources/images/Batangas.png"),
             new Image("file:src/main/resources/images/Bohol.png"),
             new Image("file:src/main/resources/images/Siargao.png"),
