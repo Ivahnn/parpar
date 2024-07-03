@@ -52,7 +52,7 @@ public class CheckoutController {
         executorService.submit(() -> {
             try {
                 ItineraryDAO itineraryDAO = new ItineraryDAO();
-                List<Itinerary> itineraries = itineraryDAO.getItineraries(username);
+                List<Itinerary> itineraries = itineraryDAO.getItinerariesForUser(username);
                 itineraryTable.getItems().addAll(itineraries); // This should work correctly if itineraries is a List<Itinerary>
             } catch (SQLException e) {
                 e.printStackTrace();

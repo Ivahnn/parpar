@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 
-public class ThirdPageController {
+public class HomePageController {
 
     @FXML
     private ImageView imageView;
@@ -95,7 +95,7 @@ public class ThirdPageController {
 
     public void handleloginLabelClick(javafx.scene.input.MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("second-page.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

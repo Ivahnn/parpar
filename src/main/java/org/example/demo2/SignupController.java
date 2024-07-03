@@ -17,7 +17,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class HelloController {
+public class SignupController {
 
     @FXML
     private TextField usernameField;
@@ -72,7 +72,7 @@ public class HelloController {
         }
 
         // Load the next page
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("second-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         Parent secondPage = loader.load();
 
         Stage stage = new Stage();
@@ -86,11 +86,11 @@ public class HelloController {
     }
 
     private void insertUser(String username, String email, String password) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/user_db";
+        String url = "jdbc:mysql://localhost:3306/ParDist";
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 
-        String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -107,7 +107,7 @@ public class HelloController {
 
     public void handleloginLabelClick(javafx.scene.input.MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("second-page.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

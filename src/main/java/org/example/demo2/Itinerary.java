@@ -2,6 +2,7 @@ package org.example.demo2;
 
 public class Itinerary {
     private int id;
+    private String username;
     private String hotel;
     private String topAttraction;
     private String activity;
@@ -26,6 +27,14 @@ public class Itinerary {
 
     // Getters and setters
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public int getId() {
         return id;
     }
@@ -33,6 +42,7 @@ public class Itinerary {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getHotel() {
         return hotel;
