@@ -81,7 +81,6 @@ public class SignupController {
         stage.show();
         Stage signUpStage = (Stage) signupButton.getScene().getWindow();
         signUpStage.close();
-
         System.out.println("Sign up successful!");
     }
 

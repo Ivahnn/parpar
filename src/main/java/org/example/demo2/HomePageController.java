@@ -17,6 +17,10 @@ import java.io.IOException;
 
 public class HomePageController {
 
+    public void setUsername(String username) {
+    }
+
+
     @FXML
     private ImageView imageView;
 
@@ -50,7 +54,6 @@ public class HomePageController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
     private void nextImage() {
         currentIndex = (currentIndex + 1) % images.length;
         imageView.setImage(images[currentIndex]);
