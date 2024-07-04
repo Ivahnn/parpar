@@ -73,10 +73,17 @@ public class HomePageController {
     @FXML
     private void handleLabelClick(javafx.scene.input.MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("plan-now.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("plan-now.fxml"));
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//
+//            stage.setScene(new Scene(root));
+//            stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+            Parent root = loader.load();
+            CheckoutController checkoutController = loader.getController();
+            checkoutController.setUsername(username);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
