@@ -213,6 +213,8 @@ public class batangas implements Initializable {
             // Load the previous scene FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
             Parent root = loader.load();
+            destination destinationController = loader.getController();
+            destinationController.setUsername(username); // Pass the username here
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
