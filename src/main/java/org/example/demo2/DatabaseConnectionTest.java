@@ -69,4 +69,4 @@ public class DatabaseConnectionTest {
 //    password NVARCHAR(50),
 //    email NVARCHAR(50) -- Removed the trailing comma
 //);
-//CREATE TABLE Itinerary (     id INT PRIMARY KEY AUTO_INCREMENT,     userId INT,     hotel NVARCHAR(100),     topAttraction NVARCHAR(100),     activity NVARCHAR(100),     breakfast NVARCHAR(100),     lunch NVARCHAR(100),     dinner NVARCHAR(100),     duration DATE,     FOREIGN KEY (userId) REFERENCES Users(userId) );
+// CREATE TABLE Itinerary (     id INT PRIMARY KEY AUTO_INCREMENT,     userId INT,  location VARCHAR(100)   ,hotel VARCHAR(100),     topAttraction VARCHAR(100),     activity VARCHAR(100),     breakfast VARCHAR(100),     lunch VARCHAR(100),     dinner VARCHAR(100),     day DATE,     FOREIGN KEY (userId) REFERENCES Users(userId) );

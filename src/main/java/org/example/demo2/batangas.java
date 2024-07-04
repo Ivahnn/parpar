@@ -15,6 +15,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,9 +66,18 @@ public class batangas implements Initializable {
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
+
+    private String username;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playVideo();
+        // Initialize ComboBoxes asynchronously
+
+
+        usernameField.setText(username); // Verify that username is not empty here
+        System.out.println("Username field set to: " + usernameField.getText()); // Add this debug statement
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(

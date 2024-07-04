@@ -91,6 +91,10 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("batangas.fxml"));
             Parent root = loader.load();
+
+            batangas batangas = loader.getController();
+
+
             Stage stage = (Stage) batangasImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {

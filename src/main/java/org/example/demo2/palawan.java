@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -133,6 +134,7 @@ public class palawan implements Initializable {
 
     @FXML
     private void handlePrintPdfButton() {
+        String location = "Palawan";
         String selectedHotel = hotelComboBox.getValue();
         String selectedAttraction = topattractionComboBox.getValue();
         String selectedActivity = activitiesComboBox.getValue();
@@ -151,8 +153,9 @@ public class palawan implements Initializable {
                 Document document = new Document(pdfDoc);
 
                 document.add(new Paragraph("Travel Plan"));
+                document.add(new Paragraph("Location: " + location));
                 document.add(new Paragraph("Traveler's Name: " + username));
-                document.add(new Paragraph("Duration: " + duration));
+                document.add(new Paragraph("Day: " + duration));
                 document.add(new Paragraph("Hotel: " + selectedHotel));
                 document.add(new Paragraph("Top Attraction: " + selectedAttraction));
                 document.add(new Paragraph("Activities: " + selectedActivity));
@@ -162,29 +165,30 @@ public class palawan implements Initializable {
 
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
-                insertItinerary(username, selectedHotel, selectedAttraction, selectedActivity,
+                insertItinerary(username, location, selectedHotel, selectedAttraction, selectedActivity,
                         selectedBreakfast, selectedLunch, selectedDinner, duration);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
     }
-    private void insertItinerary(String username, String hotel, String topAttraction, String activity,
+    private void insertItinerary(String username, String location, String hotel, String topAttraction, String activity,
                                  String breakfast, String lunch, String dinner, String duration) {
-        String sql = "INSERT INTO Itinerary (userId, hotel, topAttraction, activity, breakfast, lunch, dinner, duration) " +
-                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
+                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, username);
-            pstmt.setString(2, hotel);
-            pstmt.setString(3, topAttraction);
-            pstmt.setString(4, activity);
-            pstmt.setString(5, breakfast);
-            pstmt.setString(6, lunch);
-            pstmt.setString(7, dinner);
-            pstmt.setDate(8, java.sql.Date.valueOf(duration));
+            pstmt.setString(2, location);
+            pstmt.setString(3, hotel);
+            pstmt.setString(4, topAttraction);
+            pstmt.setString(5, activity);
+            pstmt.setString(6, breakfast);
+            pstmt.setString(7, lunch);
+            pstmt.setString(8, dinner);
+            pstmt.setDate(9, java.sql.Date.valueOf(LocalDate.parse(duration))); // Convert duration to java.sql.Date
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
