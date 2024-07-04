@@ -55,6 +55,10 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
             Parent root = loader.load();
+
+            HomePageController homepageController = loader.getController();
+            homepageController.setUsername(username); // Pass the username to the Homepage controller
+
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
@@ -67,6 +71,8 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("batanes.fxml"));
             Parent root = loader.load();
+            batanes batanes = loader.getController();
+            batanes.setUsername(username);
             Stage stage = (Stage) batanesImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
@@ -79,6 +85,8 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("baguio.fxml"));
             Parent root = loader.load();
+            baguio baguio = loader.getController();
+            baguio.setUsername(username);
             Stage stage = (Stage) baguioImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
@@ -125,6 +133,8 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("cebu.fxml"));
             Parent root = loader.load();
+            cebu cebu = loader.getController();
+            cebu.setUsername(username);
             Stage stage = (Stage) cebuImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
@@ -154,6 +164,9 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("siargao.fxml"));
             Parent root = loader.load();
+
+            siargao siargao = loader.getController();
+            siargao.setUsername(username);
             Stage stage = (Stage) siargaoImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
@@ -166,6 +179,8 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("zambales.fxml"));
             Parent root = loader.load();
+            zambales zambales = loader.getController();
+            zambales.setUsername(username);
             Stage stage = (Stage) zambalesImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
