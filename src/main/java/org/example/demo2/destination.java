@@ -94,6 +94,8 @@ public class destination {
 
             batangas batangas = loader.getController();
 
+            batangas.setUsername(username);
+
 
             Stage stage = (Stage) batangasImage.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -107,6 +109,10 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("bohol.fxml"));
             Parent root = loader.load();
+
+            bohol bohol = loader.getController();
+            bohol.setUsername(username);
+
             Stage stage = (Stage) boholImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
