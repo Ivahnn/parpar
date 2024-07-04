@@ -21,6 +21,10 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -73,6 +77,8 @@ public class palawan implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         playVideo();
 
+
+
         usernameField.setText(username); // Verify that username is not empty here
         System.out.println("Username field set to: " + usernameField.getText()); // Add this debug statement
         // Initialize ComboBoxes asynchronously
@@ -118,6 +124,13 @@ public class palawan implements Initializable {
         backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> goBack());
     }
 
+    private Connection getConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String dbUser = "root";
+        String dbPassword = "";
+        return DriverManager.getConnection(url, dbUser, dbPassword);
+    }
+
     @FXML
     private void handlePrintPdfButton() {
         String selectedHotel = hotelComboBox.getValue();
@@ -149,10 +162,39 @@ public class palawan implements Initializable {
 
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
+                insertItinerary(username, selectedHotel, selectedAttraction, selectedActivity,
+                        selectedBreakfast, selectedLunch, selectedDinner, duration);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
+    }
+    private void insertItinerary(String username, String hotel, String topAttraction, String activity,
+                                 String breakfast, String lunch, String dinner, String duration) {
+        String sql = "INSERT INTO Itinerary (userId, hotel, topAttraction, activity, breakfast, lunch, dinner, duration) " +
+                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            pstmt.setString(2, hotel);
+            pstmt.setString(3, topAttraction);
+            pstmt.setString(4, activity);
+            pstmt.setString(5, breakfast);
+            pstmt.setString(6, lunch);
+            pstmt.setString(7, dinner);
+            pstmt.setDate(8, java.sql.Date.valueOf(duration));
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Itinerary inserted successfully.");
+            } else {
+                System.out.println("Failed to insert itinerary.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Method to handle back button click
@@ -178,7 +220,6 @@ public class palawan implements Initializable {
         });
         mediaPlayer.play();
     }
-
 
     // Shutdown the executor service when done to free up resources
     public void shutdown() {

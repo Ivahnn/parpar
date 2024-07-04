@@ -163,13 +163,6 @@ public class destination {
         }
     }
 
-
-
-
-
-
-
-
     @FXML
     private void hoverEnter(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
