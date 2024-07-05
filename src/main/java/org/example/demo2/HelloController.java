@@ -55,7 +55,7 @@ public class HelloController {
             return;
         }
 
-        // Check if password and re-password match
+        // Check if password and re-password match q
         if (!password.equals(rePassword)) {
             // Handle password mismatch (show an error message, etc.)
             System.out.println("Passwords do not match.");
