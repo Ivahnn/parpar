@@ -18,6 +18,11 @@
                 <TableColumn fx:id="dayColumn" text="Day"/>
             </columns>
         </TableView>
-        <Button text="Back to Destinations" onAction="#handleBackButton"/>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Delete Selected" onAction="#handleDeleteButton"/>
+            <Button text="Print Selected" onAction="#handlePrintSelectedButton"/>
+            <Button text="Print All" onAction="#handlePrintAllButton"/>
+            <Button text="Back to Destinations" onAction="#handleBackButton"/>
+        </HBox>
     </VBox>
 </AnchorPane>
