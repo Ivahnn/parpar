@@ -68,7 +68,7 @@ public class LoginController {
     }
 
     private boolean isValidCredentials(String username, String password) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 

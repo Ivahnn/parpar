@@ -133,7 +133,7 @@ public class baguio implements Initializable {
     }
 
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String dbUser = "root";
         String dbPassword = "";
         return DriverManager.getConnection(url, dbUser, dbPassword);

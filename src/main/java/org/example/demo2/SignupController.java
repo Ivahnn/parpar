@@ -85,7 +85,7 @@ public class SignupController {
     }
 
     private void insertUser(String username, String email, String password) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 
