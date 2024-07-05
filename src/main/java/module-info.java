@@ -6,7 +6,7 @@ module org.example.demo2 {
     requires kernel;
     requires javafx.media;
     requires javafx.graphics;
-
+    requires mysql.connector.j;
 
 
     opens org.example.demo2 to javafx.fxml;

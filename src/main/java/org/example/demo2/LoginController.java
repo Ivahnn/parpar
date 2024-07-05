@@ -18,7 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SecondPageController {
+public class LoginController {
 
     @FXML
     private TextField usernameField;
@@ -46,30 +46,33 @@ public class SecondPageController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo2/third-page.fxml"));
-            Parent thirdPage = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo2/home-page.fxml"));
+            Parent homePage = loader.load();
+
+            HomePageController homepageController = loader.getController();
+            homepageController.setUsername(username); // Pass the username to the Homepage controller
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(thirdPage));
-            stage.setTitle("Welcome to the Third Page!");
+            stage.setScene(new Scene(homePage));
+            stage.setTitle("Lakbay Likha!");
             stage.show();
 
             Stage loginStage = (Stage) loginButton.getScene().getWindow();
             loginStage.close();
 
-            System.out.println("Login successful!");
+            System.out.println("Login successful!" + username);
         } catch (IOException e) {
-            System.err.println("Failed to load third-page.fxml");
+            System.err.println("Failed to load home-page.fxml");
             e.printStackTrace();
         }
     }
 
     private boolean isValidCredentials(String username, String password) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/user_db";
+        String url = "jdbc:mysql://localhost:3306/ParDist";
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 
-        String query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+        String query = "SELECT COUNT(*) FROM Users WHERE username = ? AND password = ?";
 
         try (Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement statement = connection.prepareStatement(query)) {

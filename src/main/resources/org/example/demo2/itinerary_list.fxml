@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.demo2.ItineraryListController" spacing="10" alignment="CENTER">
+    <TableView fx:id="itineraryTable">
+        <columns>
+            <TableColumn fx:id="hotelColumn" text="Hotel"/>
+            <TableColumn fx:id="attractionColumn" text="Top Attraction"/>
+            <TableColumn fx:id="activityColumn" text="Activity"/>
+            <TableColumn fx:id="breakfastColumn" text="Breakfast"/>
+            <TableColumn fx:id="lunchColumn" text="Lunch"/>
+            <TableColumn fx:id="dinnerColumn" text="Dinner"/>
+            <TableColumn fx:id="durationColumn" text="Duration"/>
+        </columns>
+    </TableView>
+</VBox>
+

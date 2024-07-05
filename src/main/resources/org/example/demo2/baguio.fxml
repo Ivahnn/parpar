@@ -33,7 +33,7 @@
                         <Font name="Arial" size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="usernameField" layoutX="36.0" layoutY="151.0" prefHeight="38.0" prefWidth="259.0" promptText="TRAVELER'S NAME" />
+                <TextField fx:id="usernameField" editable="false" layoutX="36.0" layoutY="151.0" prefHeight="38.0" prefWidth="259.0" promptText="TRAVELER'S NAME" />
                 <DatePicker fx:id="durationField" layoutX="34.0" layoutY="251.0" prefHeight="38.0" prefWidth="259.0" promptText="DURATION" />
 
                 <!-- Accordion for Hotels -->

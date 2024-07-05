@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.demo2.CheckoutController">
-    <TableView fx:id="itineraryTable">
-        <columns>
-            <TableColumn fx:id="hotelColumn" text="Hotel" />
-            <TableColumn fx:id="topAttractionColumn" text="Top Attraction" />
-            <TableColumn fx:id="activityColumn" text="Activity" />
-            <TableColumn fx:id="breakfastColumn" text="Breakfast" />
-            <TableColumn fx:id="lunchColumn" text="Lunch" />
-            <TableColumn fx:id="dinnerColumn" text="Dinner" />
-            <TableColumn fx:id="durationColumn" text="Duration" />
-        </columns>
-    </TableView>
-    <Button text="Delete" onMouseClicked="#handleDeleteButton"/>
-    <Button text="Update" onMouseClicked="#handleUpdateButton"/>
-    <Button text="Print PDF" onMouseClicked="#handlePrintPdfButton"/>
-</VBox>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo2.CheckoutController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <Label text="Your Saved Itineraries" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <TableView fx:id="itineraryTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="locationColumn" text="Location"/>
+                <TableColumn fx:id="hotelColumn" text="Hotel"/>
+                <TableColumn fx:id="attractionColumn" text="Top Attraction"/>
+                <TableColumn fx:id="activityColumn" text="Activity"/>
+                <TableColumn fx:id="dayColumn" text="Day"/>
+            </columns>
+        </TableView>
+        <Button text="Back to Destinations" onAction="#handleBackButton"/>
+    </VBox>
+</AnchorPane>

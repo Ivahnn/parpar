@@ -17,10 +17,15 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,6 +33,7 @@ import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 public class palawan implements Initializable {
+
 
     @FXML
     private ComboBox<String> hotelComboBox;
@@ -49,7 +55,14 @@ public class palawan implements Initializable {
 
     @FXML
     private TextField usernameField;
-
+    private String username;
+    public void setUsername(String username) {
+        this.username = username;
+        System.out.println("Username set to: " + username); // Add this debug statement
+        if (usernameField != null) {
+            usernameField.setText(username);
+        }
+    }
     @FXML
     private DatePicker durationField;
 
@@ -64,6 +77,11 @@ public class palawan implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playVideo();
+
+
+
+        usernameField.setText(username); // Verify that username is not empty here
+        System.out.println("Username field set to: " + usernameField.getText()); // Add this debug statement
         // Initialize ComboBoxes asynchronously
         executorService.submit(() -> {
             hotelComboBox.getItems().addAll(
@@ -107,8 +125,16 @@ public class palawan implements Initializable {
         backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> goBack());
     }
 
+    private Connection getConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String dbUser = "root";
+        String dbPassword = "";
+        return DriverManager.getConnection(url, dbUser, dbPassword);
+    }
+
     @FXML
     private void handlePrintPdfButton() {
+        String location = "Palawan";
         String selectedHotel = hotelComboBox.getValue();
         String selectedAttraction = topattractionComboBox.getValue();
         String selectedActivity = activitiesComboBox.getValue();
@@ -127,8 +153,9 @@ public class palawan implements Initializable {
                 Document document = new Document(pdfDoc);
 
                 document.add(new Paragraph("Travel Plan"));
+                document.add(new Paragraph("Location: " + location));
                 document.add(new Paragraph("Traveler's Name: " + username));
-                document.add(new Paragraph("Duration: " + duration));
+                document.add(new Paragraph("Day: " + duration));
                 document.add(new Paragraph("Hotel: " + selectedHotel));
                 document.add(new Paragraph("Top Attraction: " + selectedAttraction));
                 document.add(new Paragraph("Activities: " + selectedActivity));
@@ -138,10 +165,40 @@ public class palawan implements Initializable {
 
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
+                insertItinerary(username, location, selectedHotel, selectedAttraction, selectedActivity,
+                        selectedBreakfast, selectedLunch, selectedDinner, duration);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
+    }
+    private void insertItinerary(String username, String location, String hotel, String topAttraction, String activity,
+                                 String breakfast, String lunch, String dinner, String duration) {
+        String sql = "INSERT INTO Itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
+                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            pstmt.setString(2, location);
+            pstmt.setString(3, hotel);
+            pstmt.setString(4, topAttraction);
+            pstmt.setString(5, activity);
+            pstmt.setString(6, breakfast);
+            pstmt.setString(7, lunch);
+            pstmt.setString(8, dinner);
+            pstmt.setDate(9, java.sql.Date.valueOf(LocalDate.parse(duration))); // Convert duration to java.sql.Date
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Itinerary inserted successfully.");
+            } else {
+                System.out.println("Failed to insert itinerary.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Method to handle back button click
@@ -150,6 +207,8 @@ public class palawan implements Initializable {
             // Load the previous scene FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
             Parent root = loader.load();
+            destination destinationController = loader.getController();
+            destinationController.setUsername(username); // Pass the username here
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
@@ -167,7 +226,6 @@ public class palawan implements Initializable {
         });
         mediaPlayer.play();
     }
-
 
     // Shutdown the executor service when done to free up resources
     public void shutdown() {

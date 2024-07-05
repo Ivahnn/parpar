@@ -1,92 +1,35 @@
 package org.example.demo2;
 
+import java.time.LocalDate;
+
 public class Itinerary {
-    private int id;
+    private String location;
     private String hotel;
     private String topAttraction;
     private String activity;
-    private String breakfast;
-    private String lunch;
-    private String dinner;
-    private String duration;
+    private LocalDate day;
 
-    public Itinerary() {
-    }
-
-    public Itinerary(int id, String hotel, String topAttraction, String activity, String breakfast, String lunch, String dinner, String duration) {
-        this.id = id;
+    public Itinerary(String location, String hotel, String topAttraction, String activity, LocalDate day) {
+        this.location = location;
         this.hotel = hotel;
         this.topAttraction = topAttraction;
         this.activity = activity;
-        this.breakfast = breakfast;
-        this.lunch = lunch;
-        this.dinner = dinner;
-        this.duration = duration;
+        this.day = day;
     }
 
-    // Getters and setters
+    // Getters and setters for all fields
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
-    public int getId() {
-        return id;
-    }
+    public String getHotel() { return hotel; }
+    public void setHotel(String hotel) { this.hotel = hotel; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getTopAttraction() { return topAttraction; }
+    public void setTopAttraction(String topAttraction) { this.topAttraction = topAttraction; }
 
-    public String getHotel() {
-        return hotel;
-    }
+    public String getActivity() { return activity; }
+    public void setActivity(String activity) { this.activity = activity; }
 
-    public void setHotel(String hotel) {
-        this.hotel = hotel;
-    }
-
-    public String getTopAttraction() {
-        return topAttraction;
-    }
-
-    public void setTopAttraction(String topAttraction) {
-        this.topAttraction = topAttraction;
-    }
-
-    public String getActivity() {
-        return activity;
-    }
-
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
-
-    public String getBreakfast() {
-        return breakfast;
-    }
-
-    public void setBreakfast(String breakfast) {
-        this.breakfast = breakfast;
-    }
-
-    public String getLunch() {
-        return lunch;
-    }
-
-    public void setLunch(String lunch) {
-        this.lunch = lunch;
-    }
-
-    public String getDinner() {
-        return dinner;
-    }
-
-    public void setDinner(String dinner) {
-        this.dinner = dinner;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
+    public LocalDate getDay() { return day; }
+    public void setDay(LocalDate day) { this.day = day; }
 }

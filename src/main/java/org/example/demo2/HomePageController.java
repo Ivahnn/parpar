@@ -15,7 +15,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 
-public class ThirdPageController {
+public class HomePageController {
+    private String username;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @FXML
     private ImageView imageView;
@@ -50,7 +54,6 @@ public class ThirdPageController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
     private void nextImage() {
         currentIndex = (currentIndex + 1) % images.length;
         imageView.setImage(images[currentIndex]);
@@ -70,10 +73,17 @@ public class ThirdPageController {
     @FXML
     private void handleLabelClick(javafx.scene.input.MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("plan-now.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("plan-now.fxml"));
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//
+//            stage.setScene(new Scene(root));
+//            stage.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+            Parent root = loader.load();
+            CheckoutController checkoutController = loader.getController();
+            checkoutController.setUsername(username);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +92,10 @@ public class ThirdPageController {
     @FXML
     public void handleDestinationLabelClick(javafx.scene.input.MouseEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("destination.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
+            Parent root = loader.load();
+            destination destinationController = loader.getController();
+            destinationController.setUsername(username); // Pass the username here
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -94,15 +107,15 @@ public class ThirdPageController {
     }
 
     public void handleloginLabelClick(javafx.scene.input.MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("second-page.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//            stage.setScene(new Scene(root));
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        System.out.println("Hello, " + username + "!");
 
     }
 

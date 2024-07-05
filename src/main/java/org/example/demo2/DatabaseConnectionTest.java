@@ -17,16 +17,34 @@ public class DatabaseConnectionTest {
             connection = DatabaseConnection.getConnection();
             System.out.println("Connected to SQL Server database!");
 
-            // Example query
+            // Create a statement
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT TOP 5 * FROM ParDist");
 
-            // Process the result set (if needed)
+            // Execute query to retrieve data from Users table
+            resultSet = statement.executeQuery("SELECT * FROM Users");
+
+            System.out.println("Users:");
             while (resultSet.next()) {
-                // Example: Retrieve data from the result set
-                String column1Value = resultSet.getString("columnName");
-                // Process retrieved data as needed
-                System.out.println("Column 1 Value: " + column1Value);
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                System.out.println("Username: " + username + ", Password: " + password + ", Email: " + email);
+            }
+
+            // Execute query to retrieve data from Itinerary table
+            resultSet = statement.executeQuery("SELECT * FROM Itinerary");
+
+            System.out.println("Itinerary:");
+            while (resultSet.next()) {
+                int userId = resultSet.getInt("userId");
+                String hotel = resultSet.getString("hotel");
+                String topAttraction = resultSet.getString("topAttraction");
+                String activity = resultSet.getString("activity");
+                String breakfast = resultSet.getString("breakfast");
+                String lunch = resultSet.getString("lunch");
+                String dinner = resultSet.getString("dinner");
+                String duration = resultSet.getString("duration");
+                System.out.println("User ID: " + userId + ", Hotel: " + hotel + ", Top Attraction: " + topAttraction + ", Activity: " + activity + ", Breakfast: " + breakfast + ", Lunch: " + lunch + ", Dinner: " + dinner + ", Duration: " + duration);
             }
 
         } catch (SQLException e) {
@@ -44,3 +62,11 @@ public class DatabaseConnectionTest {
         }
     }
 }
+
+//CREATE TABLE Users (
+//    userId INT PRIMARY KEY AUTO_INCREMENT,
+//    username NVARCHAR(50),
+//    password NVARCHAR(50),
+//    email NVARCHAR(50) -- Removed the trailing comma
+//);
+// CREATE TABLE Itinerary (     id INT PRIMARY KEY AUTO_INCREMENT,     userId INT,  location VARCHAR(100)   ,hotel VARCHAR(100),     topAttraction VARCHAR(100),     activity VARCHAR(100),     breakfast VARCHAR(100),     lunch VARCHAR(100),     dinner VARCHAR(100),     day DATE,     FOREIGN KEY (userId) REFERENCES Users(userId) );

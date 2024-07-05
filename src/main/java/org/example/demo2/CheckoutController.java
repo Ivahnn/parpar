@@ -1,92 +1,106 @@
 package org.example.demo2;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import javafx.stage.Stage;
 
-public class CheckoutController {
+import java.net.URL;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+public class CheckoutController implements Initializable {
+
     @FXML
     private TableView<Itinerary> itineraryTable;
+
+    @FXML
+    private TableColumn<Itinerary, String> locationColumn;
+
     @FXML
     private TableColumn<Itinerary, String> hotelColumn;
+
     @FXML
-    private TableColumn<Itinerary, String> topAttractionColumn;
+    private TableColumn<Itinerary, String> attractionColumn;
+
     @FXML
     private TableColumn<Itinerary, String> activityColumn;
+
     @FXML
-    private TableColumn<Itinerary, String> breakfastColumn;
-    @FXML
-    private TableColumn<Itinerary, String> lunchColumn;
-    @FXML
-    private TableColumn<Itinerary, String> dinnerColumn;
-    @FXML
-    private TableColumn<Itinerary, String> durationColumn;
+    private TableColumn<Itinerary, LocalDate> dayColumn;
 
     private String username;
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-
-    @FXML
-    public void initialize() {
-        hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
-        topAttractionColumn.setCellValueFactory(new PropertyValueFactory<>("topAttraction"));
-        activityColumn.setCellValueFactory(new PropertyValueFactory<>("activity"));
-        breakfastColumn.setCellValueFactory(new PropertyValueFactory<>("breakfast"));
-        lunchColumn.setCellValueFactory(new PropertyValueFactory<>("lunch"));
-        dinnerColumn.setCellValueFactory(new PropertyValueFactory<>("dinner"));
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
-    }
 
     public void setUsername(String username) {
         this.username = username;
         loadItineraries();
     }
 
-    private void loadItineraries() {
-        itineraryTable.getItems().clear();
-        executorService.submit(() -> {
-            try {
-                ItineraryDAO itineraryDAO = new ItineraryDAO();
-                List<Itinerary> itineraries = itineraryDAO.getItineraries(username);
-                itineraryTable.getItems().addAll(itineraries); // This should work correctly if itineraries is a List<Itinerary>
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
+        attractionColumn.setCellValueFactory(new PropertyValueFactory<>("topAttraction"));
+        activityColumn.setCellValueFactory(new PropertyValueFactory<>("activity"));
+        dayColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
     }
 
-    @FXML
-    private void handleDeleteButton(MouseEvent event) {
-        Itinerary selectedItinerary = itineraryTable.getSelectionModel().getSelectedItem();
-        if (selectedItinerary != null) {
-            executorService.submit(() -> {
-                try {
-                    ItineraryDAO itineraryDAO = new ItineraryDAO();
-                    itineraryDAO.deleteItinerary(selectedItinerary.getId());
-                    loadItineraries();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
+    private void loadItineraries() {
+        ObservableList<Itinerary> itineraries = FXCollections.observableArrayList();
+
+        String sql = "SELECT location, hotel, topAttraction, activity, day FROM Itinerary " +
+                "WHERE userId = (SELECT userId FROM Users WHERE username = ?)";
+
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Itinerary itinerary = new Itinerary(
+                        rs.getString("location"),
+                        rs.getString("hotel"),
+                        rs.getString("topAttraction"),
+                        rs.getString("activity"),
+                        rs.getDate("day").toLocalDate()
+                );
+                itineraries.add(itinerary);
+            }
+
+            itineraryTable.setItems(itineraries);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
-    private void handleUpdateButton(MouseEvent event) {
-        // Implement update functionality here
+    private void handleBackButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
+            Parent root = loader.load();
+            destination destinationController = loader.getController();
+            destinationController.setUsername(username);
+            Stage stage = (Stage) itineraryTable.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @FXML
-    private void handlePrintPdfButton() {
-        // Implement PDF printing functionality here
-    }
-
-    public void shutdown() {
-        executorService.shutdown();
+    private Connection getConnection() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String dbUser = "root";
+        String dbPassword = "";
+        return DriverManager.getConnection(url, dbUser, dbPassword);
     }
 }
