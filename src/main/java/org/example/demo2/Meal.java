@@ -1,11 +1,11 @@
 package org.example.demo2;
 
-public class Activity {
+public class Meal {
     private String name;
     private String time;
     private boolean active;
 
-    public Activity(String name, String time, boolean active) {
+    public Meal(String name, String time, boolean active) {
         this.name = name;
         this.time = time;
         this.active = active;

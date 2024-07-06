@@ -139,13 +139,21 @@ public class PalawanTest implements Initializable {
         chosenTimeColumn.setOnEditCommit(event -> {
             Platform.runLater(() -> {
                 Activity activity = event.getRowValue();
-                String[] timeRange = event.getNewValue().split("-");
+                String newValue = event.getNewValue().trim();
+                String[] timeRange = newValue.split("-");
                 if (timeRange.length == 2 && isValidTimeFormat(timeRange[0].trim()) && isValidTimeFormat(timeRange[1].trim())) {
                     if (compareTimes(timeRange[0].trim(), timeRange[1].trim()) < 0) {
-                        activity.setTime(event.getNewValue());
-                        activity.setActive(true);
-                        sortActivitiesByTime();
-                        System.out.println("Time updated and sorted: " + event.getNewValue());
+                        String arrivalTime = arrivalTimeField.getText();
+                        if (!arrivalTime.isEmpty() && compareTimes(arrivalTime, timeRange[0].trim()) <= 0) {
+                            activity.setTime(newValue);
+                            activity.setActive(true);
+                            sortActivitiesByTime();
+                            System.out.println("Time updated and sorted: " + newValue);
+                        } else {
+                            showAlert("Invalid Time Range", "Start time must be after the arrival time.");
+                            activity.setTime("");
+                            activity.setActive(false);
+                        }
                     } else {
                         showAlert("Invalid Time Range", "Start time must be before end time.");
                         activity.setTime("");
@@ -174,7 +182,6 @@ public class PalawanTest implements Initializable {
 
         predefinedActivitiesTable.setItems(predefinedActivities);
     }
-
     @FXML
     private void handleAddArrivalActivity() {
         LocalDate arrivalDate = arrivalDatePicker.getValue();
