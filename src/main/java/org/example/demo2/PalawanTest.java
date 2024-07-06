@@ -64,10 +64,23 @@ public class PalawanTest implements Initializable {
     private TableColumn<Activity, String> predefinedActivityColumn;
 
     @FXML
+    private TableView<Activity> mealsTable;
+
+    @FXML
+    private TableColumn<Activity, String> mealsColumn;
+
+
+    @FXML
     private TextField customActivityField;
 
     @FXML
+    private TextField customActivityField1;
+
+    @FXML
     private TextField customTimeField;
+    @FXML
+
+    private TextField customTimeField1;
 
     @FXML
     private DatePicker arrivalDatePicker;
@@ -97,12 +110,13 @@ public class PalawanTest implements Initializable {
     private Button addArrivalButton;
 
     @FXML
-    private Button resetButton; // Add this field
+    private Button resetButton;
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private final ObservableList<Activity> chosenActivities = FXCollections.observableArrayList();
     private final ObservableList<Activity> predefinedActivities = FXCollections.observableArrayList();
+    private final ObservableList<Activity> mealsactivities = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -170,7 +184,8 @@ public class PalawanTest implements Initializable {
 
         chosenActivitiesTable.setItems(chosenActivities);
 
-        // Initialize predefined activities table
+
+
         predefinedActivityColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         predefinedActivities.addAll(
                 new Activity("Island Hopping in El Nido", "", false),
@@ -179,8 +194,18 @@ public class PalawanTest implements Initializable {
                 new Activity("Kayaking in Big Lagoon", "", false),
                 new Activity("Swimming in Kayangan Lake", "", false)
         );
-
         predefinedActivitiesTable.setItems(predefinedActivities);
+
+        mealsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        mealsactivities.addAll(
+                new Activity("Adobo", "", false),
+                new Activity("sinigang", "", false),
+                new Activity("sisig", "", false),
+                new Activity("tinola", "", false),
+                new Activity("pancit", "", false)
+        );
+        mealsTable.setItems(mealsactivities);
+
     }
     @FXML
     private void handleAddArrivalActivity() {
@@ -203,6 +228,7 @@ public class PalawanTest implements Initializable {
         chosenActivitiesTable.setDisable(false);
         addArrivalButton.setDisable(true);
     }
+
 
     @FXML
     private void handleArrivalTimeChanged() {
@@ -234,6 +260,25 @@ public class PalawanTest implements Initializable {
     }
 
     @FXML
+    private void handleAddCustomActivity1() {
+        String customActivity = customActivityField1.getText().trim();
+
+        if (!customActivity.isEmpty()) {
+            if (!isDuplicateActivity(customActivity)) {
+                chosenActivities.add(new Activity(customActivity, "", true)); // Assuming 'true' for active state
+                customActivityField1.clear();
+                sortActivitiesByTime(); // Sort after adding custom activity
+            } else {
+                showAlert("Duplicate Activity", "This activity has already been added.");
+            }
+        } else {
+            showAlert("Missing Information", "Please enter an activity.");
+        }
+    }
+
+
+
+    @FXML
     private void handleAddPredefinedActivity() {
         Activity selectedActivity = predefinedActivitiesTable.getSelectionModel().getSelectedItem();
         if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
@@ -241,6 +286,18 @@ public class PalawanTest implements Initializable {
             sortActivitiesByTime();
         }
     }
+
+    @FXML
+    private void handleAddMealActivity() {
+        Activity selectedActivity = mealsTable.getSelectionModel().getSelectedItem();
+        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+            chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
+            sortActivitiesByTime();
+        }
+    }
+
+
+
 
     @FXML
     private void handleRemoveChosenActivity() {
