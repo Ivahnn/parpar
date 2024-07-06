@@ -1,70 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1102.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.PalawanTest">
-    <!-- Arrival Section -->
-    <DatePicker fx:id="arrivalDatePicker" layoutX="45.0" layoutY="50.0" onAction="#handleArrivalTimeChanged" />
-    <TextField fx:id="arrivalTimeField" layoutX="237.0" layoutY="50.0" onKeyReleased="#handleArrivalTimeChanged" />
-    <Button fx:id="addArrivalButton" layoutX="430.0" layoutY="50.0" onAction="#handleAddArrivalActivity" text="Add Arrival Activity" />
-
-    <!-- Chosen Activities Table -->
-    <TableView fx:id="chosenActivitiesTable" editable="true" layoutX="46.0" layoutY="100.0" prefHeight="200" prefWidth="479.0">
-        <columns>
-            <TableColumn fx:id="chosenActivityColumn" prefWidth="295.2453308105469" text="Activity" />
-            <TableColumn fx:id="chosenTimeColumn" minWidth="0.0" prefWidth="204.67919921875" text="Time" />
-        </columns>
-    </TableView>
-    <Button layoutX="576.0" layoutY="251.0" onAction="#handleRemoveChosenActivity" prefHeight="25.0" prefWidth="147.0" text="Remove Selected Activity" />
-
-    <!-- Predefined Activities Table -->
-    <TableView fx:id="predefinedActivitiesTable" editable="false" layoutX="46.0" layoutY="320.0" prefHeight="150" prefWidth="479.0">
-        <columns>
-            <TableColumn fx:id="predefinedActivityColumn" prefWidth="250.0" text="Predefined Activities" />
-        </columns>
-    </TableView>
-    <Button layoutX="576.0" layoutY="211.0" onAction="#handleAddPredefinedActivity" prefHeight="25.0" prefWidth="147.0" text="Add Selected Activity" />
-
-    <!-- Custom Activity Section -->
-    <TextField fx:id="customActivityField" layoutX="46.0" layoutY="480.0" prefHeight="25.0" prefWidth="226.0" promptText="Custom Activities" />
-    <TextField fx:id="customTimeField" layoutX="299.0" layoutY="480.0" prefHeight="25.0" prefWidth="226.0" promptText="Time" />
-    <Button layoutX="550" layoutY="480" onAction="#handleAddCustomActivity" text="Add Custom Activity" />
+<AnchorPane prefHeight="894.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.PalawanTest">
 
     <!-- Media and Navigation -->
-    <MediaView fx:id="mediaView" fitHeight="450" fitWidth="800" layoutX="352.0" layoutY="889.0" />
-    <ImageView fx:id="backButton" fitHeight="50" fitWidth="50" layoutX="20" layoutY="20" />
+    <MediaView fx:id="mediaView" fitHeight="888.0" fitWidth="527.0" layoutX="581.0" layoutY="4.0">
+      <viewport>
+         <Rectangle2D height="888.0" width="527.0" />
+      </viewport></MediaView>
+   <AnchorPane layoutY="1.0" prefHeight="892.0" prefWidth="581.0" style="-fx-background-color: NAVAJOWHITE;">
+      <children>
+      
+                      <!-- Username Field -->
+          <TextField fx:id="usernameField" layoutX="39.0" layoutY="14.0" prefHeight="43.0" prefWidth="247.0" promptText="Username" />
+          <!-- Arrival Section -->
+          <DatePicker fx:id="arrivalDatePicker" layoutX="37.0" layoutY="64.0" onAction="#handleArrivalTimeChanged" />
+          <TextField fx:id="arrivalTimeField" layoutX="216.0" layoutY="64.0" onKeyReleased="#handleArrivalTimeChanged" />
+          <Button fx:id="addArrivalButton" layoutX="376.0" layoutY="64.0" onAction="#handleAddArrivalActivity" text="Add Arrival Activity" />
+      
+                <!-- Chosen Activities Table -->
+          <TableView fx:id="chosenActivitiesTable" editable="true" layoutX="38.0" layoutY="99.0" prefHeight="215.0" prefWidth="537.0">
+              <columns>
+                  <TableColumn fx:id="chosenActivityColumn" prefWidth="295.2453308105469" text="Activity" />
+                  <TableColumn fx:id="chosenTimeColumn" minWidth="0.0" prefWidth="204.67919921875" text="Time" />
+              </columns>
+          </TableView>
+      
+          <!-- Predefined Activities Table -->
+          <TableView fx:id="predefinedActivitiesTable" editable="false" layoutX="38.0" layoutY="322.0" prefHeight="192.0" prefWidth="537.0">
+              <columns>
+                  <TableColumn fx:id="predefinedActivityColumn" prefWidth="250.0" text="Predefined Activities" />
+              </columns>
+          </TableView>
+          <Button layoutX="231.0" layoutY="564.0" onAction="#handleRemoveChosenActivity" prefHeight="35.0" prefWidth="192.0" style="-fx-background-radius: 60px; -fx-background-color: midnightblue;" text="Remove Selected Activity" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="12.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+          <Button layoutX="38.0" layoutY="564.0" onAction="#handleAddPredefinedActivity" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 60px; -fx-background-color: midnightblue;" text="Add Selected Activity" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="13.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+      
+          <!-- Custom Activity Section -->
+          <TextField fx:id="customActivityField" layoutX="38.0" layoutY="521.0" prefHeight="35.0" prefWidth="180.0" promptText="Custom Activities" />
+          <TextField fx:id="customTimeField" layoutX="231.0" layoutY="521.0" prefHeight="35.0" prefWidth="180.0" promptText="Time" />
+          <Button layoutX="435.0" layoutY="521.0" onAction="#handleAddCustomActivity" prefHeight="43.0" prefWidth="116.0" style="-fx-background-color: midnightblue; -fx-background-radius: 60px;" text="Add Custom Activity" textFill="WHITE">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+               <Font name="Arial Black" size="9.0" />
+            </font>
+         </Button>
+      
+          <Button layoutX="231.0" layoutY="606.0" onAction="#saveToDatabase" prefHeight="35.0" prefWidth="192.0" style="-fx-background-radius: 60px; -fx-background-color: midnightblue;" text="Save to Database" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="13.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+          <Button fx:id="resetButton" layoutX="38.0" layoutY="606.0" onAction="#resetFields" prefHeight="35.0" prefWidth="180.0" style="-fx-background-radius: 60px; -fx-background-color: midnightblue;" text="Reset Fields" textFill="WHITE">
+            <font>
+               <Font name="Arial Black" size="13.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+          <TableView fx:id="mealsTable" editable="false" layoutX="38.0" layoutY="648.0" prefHeight="150" prefWidth="537.0">
+              <columns>
+                  <TableColumn fx:id="mealsColumn" prefWidth="536.150975823191" text="Meals" />
+              </columns>
+          </TableView>
+          <Button layoutX="37.0" layoutY="849.0" onAction="#handleAddMealActivity" prefHeight="35.0" prefWidth="180.0" style="-fx-background-color: midnightblue; -fx-background-radius: 60px;" text="Add Selected Activity" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+      
+      
+          <Button layoutX="290.0" layoutY="812.0" mnemonicParsing="false" onAction="#handleAddCustomActivity1" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: midnightblue; -fx-background-radius: 60px;" text="Add Custom Activity" textFill="WHITE">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+               <Font name="System Bold" size="11.773585319519043" />
+            </font>
+         </Button>
+         <TextField fx:id="customActivityField1" layoutX="39.0" layoutY="807.0" prefHeight="35.0" prefWidth="226.0" promptText="Custom food" />
 
-    <Button layoutX="575.0" layoutY="300.0" onAction="#saveToDatabase" prefHeight="25.0" prefWidth="149.0" text="Save to Database" />
-    <Button fx:id="resetButton" layoutX="576.0" layoutY="342.0" onAction="#resetFields" prefHeight="25.0" prefWidth="149.0" text="Reset Fields" />
 
-    <!-- Username Field -->
-    <TextField fx:id="usernameField" layoutX="45.0" layoutY="14.0" prefHeight="25.0" prefWidth="172.0" promptText="Username" />
-
-    <!-- Meals Section -->
-    <Text layoutX="46.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" MEALS" wrappingWidth="115.92453247374533">
-        <font>
-            <Font size="20.0" />
-        </font>
-    </Text>
-    <TableView fx:id="mealsTable" editable="false" layoutX="46.0" layoutY="564.0" prefHeight="150" prefWidth="479.0">
-        <columns>
-            <TableColumn fx:id="mealsColumn" prefWidth="478.1886981422265" text="Meals" />
-        </columns>
-    </TableView>
-    <Button layoutX="559.0" layoutY="600.0" onAction="#handleAddMealActivity" prefHeight="25.0" prefWidth="180.0" text="Add Selected Activity" />
+         <ImageView fx:id="backButton" fitHeight="22.0" fitWidth="98.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../images/backspace1.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+      </children>
+   </AnchorPane>
 
 
-    <Button layoutX="533.0" layoutY="787.0" mnemonicParsing="false" onAction="#handleAddCustomActivity1" text="Button" />
-   <TextField fx:id="customActivityField1" layoutX="48.0" layoutY="787.0" prefHeight="25.0" prefWidth="226.0" promptText="Custom Activities" />
 
 
 

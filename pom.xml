@@ -52,7 +52,6 @@
             <artifactId>layout</artifactId>
             <version>7.1.15</version>
         </dependency>
-
         <!-- MySQL JDBC Driver dependency -->
         <dependency>
             <groupId>mysql</groupId>

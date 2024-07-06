@@ -85,6 +85,8 @@ public class PalawanTest implements Initializable {
     @FXML
     private DatePicker arrivalDatePicker;
 
+
+
     @FXML
     private TextField arrivalTimeField;
 
@@ -368,7 +370,7 @@ public class PalawanTest implements Initializable {
 
     private void goBack() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/your/previous.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = (Stage) backButton.getScene().getWindow();
@@ -379,7 +381,6 @@ public class PalawanTest implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void saveToDatabase() {
         String url = "jdbc:mysql://localhost:3306/test";
@@ -389,7 +390,6 @@ public class PalawanTest implements Initializable {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             String sql = "INSERT INTO activity (username, activity, time, date) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-
             for (Activity activity : chosenActivities) {
                 statement.setString(1, username);
                 statement.setString(2, activity.getName());
@@ -397,7 +397,6 @@ public class PalawanTest implements Initializable {
                 statement.setDate(4, java.sql.Date.valueOf(arrivalDatePicker.getValue()));
                 statement.addBatch();
             }
-
             statement.executeBatch();
             showAlert("Success", "Data saved to the database.");
         } catch (SQLException e) {

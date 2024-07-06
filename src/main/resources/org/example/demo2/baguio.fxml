@@ -18,7 +18,7 @@
     <children>
         <AnchorPane prefHeight="669.0" prefWidth="470.0" style="-fx-background-color: NAVAJOWHITE;">
             <children>
-                <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="backButton" fitHeight="22.0" fitWidth="98.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../images/backspace1.png" />
                     </image>
