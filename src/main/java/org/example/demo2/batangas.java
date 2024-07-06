@@ -180,8 +180,8 @@ public class batangas implements Initializable {
 
     private void insertItinerary(String username, String location, String hotel, String topAttraction, String activity,
                                  String breakfast, String lunch, String dinner, String duration) {
-        String sql = "INSERT INTO itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
-                "VALUES ((SELECT userId FROM users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
+                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
