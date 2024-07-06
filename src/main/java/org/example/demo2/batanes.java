@@ -130,7 +130,7 @@ public class batanes implements Initializable {
     }
 
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String dbUser = "root";
         String dbPassword = "";
         return DriverManager.getConnection(url, dbUser, dbPassword);
@@ -179,8 +179,8 @@ public class batanes implements Initializable {
 
     private void insertItinerary(String username, String location, String hotel, String topAttraction, String activity,
                                  String breakfast, String lunch, String dinner, String duration) {
-        String sql = "INSERT INTO Itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
-                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
+                "VALUES ((SELECT userId FROM users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

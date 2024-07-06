@@ -21,7 +21,7 @@ public class DatabaseConnectionTest {
             statement = connection.createStatement();
 
             // Execute query to retrieve data from Users table
-            resultSet = statement.executeQuery("SELECT * FROM Users");
+            resultSet = statement.executeQuery("SELECT * FROM users");
 
             System.out.println("Users:");
             while (resultSet.next()) {
@@ -32,7 +32,7 @@ public class DatabaseConnectionTest {
             }
 
             // Execute query to retrieve data from Itinerary table
-            resultSet = statement.executeQuery("SELECT * FROM Itinerary");
+            resultSet = statement.executeQuery("SELECT * FROM itinerary");
 
             System.out.println("Itinerary:");
             while (resultSet.next()) {
@@ -65,8 +65,8 @@ public class DatabaseConnectionTest {
 
 //CREATE TABLE Users (
 //    userId INT PRIMARY KEY AUTO_INCREMENT,
-//    username NVARCHAR(50),
-//    password NVARCHAR(50),
-//    email NVARCHAR(50) -- Removed the trailing comma
+//    username VARCHAR(50),
+//    password VARCHAR(50),
+//    email VARCHAR(50) -- Removed the trailing comma
 //);
 // CREATE TABLE Itinerary (     id INT PRIMARY KEY AUTO_INCREMENT,     userId INT,  location VARCHAR(100)   ,hotel VARCHAR(100),     topAttraction VARCHAR(100),     activity VARCHAR(100),     breakfast VARCHAR(100),     lunch VARCHAR(100),     dinner VARCHAR(100),     day DATE,     FOREIGN KEY (userId) REFERENCES Users(userId) );

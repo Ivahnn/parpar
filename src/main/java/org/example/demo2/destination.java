@@ -145,12 +145,16 @@ public class destination {
     @FXML
     private void handlePalawanClick(MouseEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("palawan.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("palawan-test.fxml"));
             Parent root = loader.load();
 
-            palawan palawan = loader.getController();
+//            palawan palawan = loader.getController();
+//
+//            palawan.setUsername(username);
 
+            PalawanTest palawan = loader.getController();
             palawan.setUsername(username);
+
 
             Stage stage = (Stage) palawanImage.getScene().getWindow();
             stage.setScene(new Scene(root));

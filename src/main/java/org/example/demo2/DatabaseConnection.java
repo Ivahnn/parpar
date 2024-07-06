@@ -8,7 +8,7 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/"; // Update URL
     private static final String USER = "root"; // Update username
     private static final String PASSWORD = ""; // Update password
-    private static final String DATABASE_NAME = "ParDist"; // Update database name
+    private static final String DATABASE_NAME = "pardist"; // Update database name
 
     // Static block to load the MySQL JDBC driver
     static {

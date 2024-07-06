@@ -85,11 +85,11 @@ public class SignupController {
     }
 
     private void insertUser(String username, String email, String password) throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 
-        String query = "INSERT INTO Users (username, email, password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement statement = connection.prepareStatement(query)) {

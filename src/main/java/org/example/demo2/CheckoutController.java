@@ -62,8 +62,8 @@ public class CheckoutController implements Initializable {
     private void loadItineraries() {
         ObservableList<Itinerary> itineraries = FXCollections.observableArrayList();
 
-        String sql = "SELECT id, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day FROM Itinerary " +
-                "WHERE userId = (SELECT userId FROM Users WHERE username = ?)";
+        String sql = "SELECT id, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day FROM itinerary " +
+                "WHERE userId = (SELECT userId FROM users WHERE username = ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -101,7 +101,7 @@ public class CheckoutController implements Initializable {
             return;
         }
 
-        String sql = "DELETE FROM Itinerary WHERE id = ? AND userId = (SELECT userId FROM Users WHERE username = ?)";
+        String sql = "DELETE FROM itinerary WHERE id = ? AND userId = (SELECT userId FROM users WHERE username = ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -217,7 +217,7 @@ public class CheckoutController implements Initializable {
     }
 
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/ParDist";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String dbUser = "root";
         String dbPassword = "";
         return DriverManager.getConnection(url, dbUser, dbPassword);
