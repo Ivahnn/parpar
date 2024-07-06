@@ -151,6 +151,10 @@ public class destination {
 //            palawan palawan = loader.getController();
 //
 //            palawan.setUsername(username);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82cef89 (feat: add test palawan for activities)
             PalawanTest palawan = loader.getController();
             palawan.setUsername(username);
 

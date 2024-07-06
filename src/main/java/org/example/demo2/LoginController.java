@@ -80,7 +80,11 @@ public class LoginController {
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 
+<<<<<<< HEAD
         String query = "SELECT COUNT(*) FROM users WHERE BINARY username = ? AND BINARY password = ?";
+=======
+        String query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+>>>>>>> 82cef89 (feat: add test palawan for activities)
 
         try (Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement statement = connection.prepareStatement(query)) {
