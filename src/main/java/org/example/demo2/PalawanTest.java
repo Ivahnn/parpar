@@ -368,6 +368,14 @@ public class PalawanTest implements Initializable {
 
     @FXML
     private void saveToDatabase() {
+        // Check if any activity has an empty time
+        for (Activity activity : chosenActivities) {
+            if (activity.getTime().isEmpty()) {
+                showAlert("Invalid Activity", "All activities must have a valid time.");
+                return;
+            }
+        }
+
         String url = "jdbc:mysql://localhost:3306/pardist";
         String user = "root";
         String password = "";
