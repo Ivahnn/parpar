@@ -368,12 +368,31 @@ public class PalawanTest implements Initializable {
 
     @FXML
     private void saveToDatabase() {
+        // Check if any activity has an empty time
+        for (Activity activity : chosenActivities) {
+            if (activity.getTime().isEmpty()) {
+                showAlert("Invalid Activity", "All activities must have a valid time.");
+                return;
+            }
+        }
+
         String url = "jdbc:mysql://localhost:3306/pardist";
         String user = "root";
         String password = "";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             connection.setAutoCommit(false);
+
+            // Check if itinerary with the same day already exists for the user
+            String checkItinerarySql = "SELECT COUNT(*) FROM itinerary WHERE userId = (SELECT userId FROM users WHERE username = ?) AND day = ?";
+            PreparedStatement checkItineraryStmt = connection.prepareStatement(checkItinerarySql);
+            checkItineraryStmt.setString(1, username);
+            checkItineraryStmt.setDate(2, java.sql.Date.valueOf(arrivalDatePicker.getValue()));
+            ResultSet checkItineraryRs = checkItineraryStmt.executeQuery();
+            if (checkItineraryRs.next() && checkItineraryRs.getInt(1) > 0) {
+                showAlert("Duplicate Itinerary", "An itinerary for the same day already exists.");
+                return;
+            }
 
             String itinerarySql = "INSERT INTO itinerary (userId, location, hotel, day) VALUES ((SELECT userId FROM users WHERE username = ?), ?, ?, ?)";
             PreparedStatement itineraryStatement = connection.prepareStatement(itinerarySql, Statement.RETURN_GENERATED_KEYS);

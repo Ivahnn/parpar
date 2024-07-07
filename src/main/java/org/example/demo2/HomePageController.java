@@ -1,4 +1,5 @@
 package org.example.demo2;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 
 public class HomePageController {
@@ -25,9 +27,6 @@ public class HomePageController {
 
    @FXML
    private ImageView imageView;
-
-   @FXML
-   private Button handleLogoutButtonClick;
 
    @FXML
    private Label usernameLabel;
@@ -102,7 +101,10 @@ public class HomePageController {
    @FXML
    public void handleaboutLabelClick(javafx.scene.input.MouseEvent event) {
       try {
-         Parent root = FXMLLoader.load(getClass().getResource("about.fxml"));
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
+         Parent root = loader.load();
+         about aboutController = loader.getController();
+         aboutController.setUsername(username); // Pass the username here
          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
          stage.setScene(new Scene(root));
          stage.show();

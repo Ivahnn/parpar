@@ -15,6 +15,13 @@ public class about {
     @FXML
     private ImageView backButton;
 
+    private String username;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @FXML
     public void initialize() {
         backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> goBack());
     }
@@ -23,6 +30,10 @@ public class about {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
             Parent root = loader.load();
+
+            HomePageController homePageController = loader.getController();
+            homePageController.setUsername(username);
+
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {

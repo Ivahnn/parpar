@@ -35,3 +35,5 @@ public class Activity {
         this.active = active;
     }
 }
+//package org.example.demo2;public class Activity {
+//}

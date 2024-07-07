@@ -151,6 +151,7 @@ public class destination {
 //            palawan palawan = loader.getController();
 //
 //            palawan.setUsername(username);
+
             PalawanTest palawan = loader.getController();
             palawan.setUsername(username);
 

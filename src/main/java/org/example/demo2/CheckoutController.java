@@ -13,8 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -166,7 +168,7 @@ public class CheckoutController implements Initializable {
     private void printItinerary(Itinerary itinerary) {
         executorService.submit(() -> {
             try {
-                String pdfPath = "Itinerary_" + itinerary.getId() + ".pdf";
+                String pdfPath = "C:/Users/Ivahnn/Downloads/Itinerary_" + itinerary.getId() + ".pdf";
                 PdfWriter writer = new PdfWriter(pdfPath);
                 com.itextpdf.kernel.pdf.PdfDocument pdfDoc = new com.itextpdf.kernel.pdf.PdfDocument(writer);
                 Document document = new Document(pdfDoc);
@@ -180,6 +182,9 @@ public class CheckoutController implements Initializable {
 
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
+
+                // Open the PDF file in the default viewer
+                openPDFInViewer(pdfPath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -201,14 +206,36 @@ public class CheckoutController implements Initializable {
                     document.add(new Paragraph("Day: " + itinerary.getDay()));
                     document.add(new Paragraph("Hotel: " + itinerary.getHotel()));
                     document.add(new Paragraph("Activities: " + itinerary.getActivitySummary()));
+                    document.add(new Paragraph("\n"));
                 }
 
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
+
+                // Open the PDF file in the default viewer
+                openPDFInViewer(pdfPath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void openPDFInViewer(String pdfPath) {
+        try {
+            File pdfFile = new File(pdfPath);
+            if (pdfFile.exists()) {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(pdfFile);
+                } else {
+                    showAlert("Error", "Awt Desktop is not supported!");
+                }
+            } else {
+                showAlert("Error", "File does not exist!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "Failed to open PDF: " + e.getMessage());
+        }
     }
 
     @FXML
