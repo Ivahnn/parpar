@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-=======
->>>>>>> 82cef89 (feat: add test palawan for activities)
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
-<<<<<<< HEAD
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="817.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.PalawanTest">
+<AnchorPane prefHeight="817.0" prefWidth="1085.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.demo2.PalawanTest">
 
     <!-- Media and Navigation -->
     <MediaView fx:id="mediaView" fitHeight="810.0" fitWidth="527.0" layoutX="595.0" layoutY="3.0">
@@ -102,6 +103,7 @@
                 </cursor>
             </Button>
 
+
             <Button layoutX="273.0" layoutY="731.0" mnemonicParsing="false" onAction="#handleAddCustomActivity1" prefHeight="25.0" prefWidth="148.0" style="-fx-background-color: midnightblue; -fx-background-radius: 60px;" text="Add Custom Food" textFill="WHITE">
                 <cursor>
                     <Cursor fx:constant="HAND" />
@@ -112,7 +114,7 @@
             </Button>
             <TextField fx:id="customActivityField1" layoutX="39.0" layoutY="726.0" prefHeight="35.0" prefWidth="226.0" promptText="Custom food" />
 
-            <!-- Back Button -->
+
             <ImageView fx:id="backButton" fitHeight="22.0" fitWidth="98.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                     <Image url="@../../../images/backspace1.png" />
@@ -121,37 +123,11 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </ImageView>
-
-            <!-- Hotel ComboBox -->
-            <ComboBox fx:id="hotelComboBox" layoutX="376.0" layoutY="24.0" prefWidth="150.0" />
         </children>
     </AnchorPane>
 
-=======
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="org.example.demo2.PalawanTest">
-    <!-- Other UI components -->
 
-    <DatePicker fx:id="arrivalDatePicker" layoutX="150" layoutY="50" onAction="#handleArrivalTimeChanged" />
-    <TextField fx:id="arrivalTimeField" layoutX="350" layoutY="50" onKeyReleased="#handleArrivalTimeChanged" />
-    <Button fx:id="addArrivalButton" layoutX="550" layoutY="50" onAction="#handleAddArrivalActivity" text="Add Arrival Activity" />
-    <TableView fx:id="activitiesTable" editable="true" layoutX="150" layoutY="100" prefHeight="200" prefWidth="500">
-        <columns>
-            <TableColumn fx:id="activityColumn" prefWidth="250.0" text="Activity" />
-            <TableColumn fx:id="timeColumn" minWidth="0.0" prefWidth="249.0" text="Time" />
-        </columns>
-    </TableView>
-    <TextField fx:id="customActivityField" layoutX="150" layoutY="320" />
-    <TextField fx:id="customTimeField" layoutX="350" layoutY="320" />
-    <Button layoutX="550" layoutY="320" onAction="#handleAddCustomActivity" text="Add Custom Activity" />
 
-    <MediaView fx:id="mediaView" fitHeight="450" fitWidth="800" layoutX="100" layoutY="400" />
 
-    <ImageView fx:id="backButton" fitHeight="50" fitWidth="50" layoutX="20" layoutY="20" />
-
-    <Button layoutX="650" layoutY="350" onAction="#saveToDatabase" text="Save to Database" />
-    <Button fx:id="resetButton" layoutX="650" layoutY="410" onAction="#resetFields" text="Reset Fields" />
-
-    <TextField fx:id="usernameField" layoutX="700" layoutY="20" promptText="Username" />
->>>>>>> 82cef89 (feat: add test palawan for activities)
 </AnchorPane>
