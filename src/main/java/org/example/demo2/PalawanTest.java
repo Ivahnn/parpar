@@ -4,10 +4,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,29 +15,23 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Comparator;
-import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
+
+import java.io.FileNotFoundException;
+import java.net.URL;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PalawanTest implements Initializable {
 
@@ -69,7 +59,6 @@ public class PalawanTest implements Initializable {
     @FXML
     private TableColumn<Activity, String> mealsColumn;
 
-
     @FXML
     private TextField customActivityField;
 
@@ -78,14 +67,9 @@ public class PalawanTest implements Initializable {
 
     @FXML
     private TextField customTimeField;
-    @FXML
-
-    private TextField customTimeField1;
 
     @FXML
     private DatePicker arrivalDatePicker;
-
-
 
     @FXML
     private TextField arrivalTimeField;
@@ -138,10 +122,12 @@ public class PalawanTest implements Initializable {
 
     private void initializeHotelComboBox() {
         executorService.submit(() -> {
-            hotelComboBox.getItems().addAll(
-                    "Amanpulo", "El Nido Resorts Pangulasian Island", "Two Seasons Coron Island Resort & Spa",
-                    "Club Paradise Palawan", "Lagen Island Resort"
-            );
+            Platform.runLater(() -> {
+                hotelComboBox.getItems().addAll(
+                        "Amanpulo", "El Nido Resorts Pangulasian Island", "Two Seasons Coron Island Resort & Spa",
+                        "Club Paradise Palawan", "Lagen Island Resort"
+                );
+            });
         });
     }
 
@@ -186,8 +172,6 @@ public class PalawanTest implements Initializable {
 
         chosenActivitiesTable.setItems(chosenActivities);
 
-
-
         predefinedActivityColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         predefinedActivities.addAll(
                 new Activity("Island Hopping in El Nido", "", false),
@@ -201,14 +185,14 @@ public class PalawanTest implements Initializable {
         mealsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         mealsactivities.addAll(
                 new Activity("Adobo", "", false),
-                new Activity("sinigang", "", false),
-                new Activity("sisig", "", false),
-                new Activity("tinola", "", false),
-                new Activity("pancit", "", false)
+                new Activity("Sinigang", "", false),
+                new Activity("Sisig", "", false),
+                new Activity("Tinola", "", false),
+                new Activity("Pancit", "", false)
         );
         mealsTable.setItems(mealsactivities);
-
     }
+
     @FXML
     private void handleAddArrivalActivity() {
         LocalDate arrivalDate = arrivalDatePicker.getValue();
@@ -230,7 +214,6 @@ public class PalawanTest implements Initializable {
         chosenActivitiesTable.setDisable(false);
         addArrivalButton.setDisable(true);
     }
-
 
     @FXML
     private void handleArrivalTimeChanged() {
@@ -278,8 +261,6 @@ public class PalawanTest implements Initializable {
         }
     }
 
-
-
     @FXML
     private void handleAddPredefinedActivity() {
         Activity selectedActivity = predefinedActivitiesTable.getSelectionModel().getSelectedItem();
@@ -297,9 +278,6 @@ public class PalawanTest implements Initializable {
             sortActivitiesByTime();
         }
     }
-
-
-
 
     @FXML
     private void handleRemoveChosenActivity() {
@@ -352,7 +330,13 @@ public class PalawanTest implements Initializable {
     }
 
     private void sortActivitiesByTime() {
-        chosenActivities.sort(Comparator.comparing(activity -> LocalTime.parse(activity.getTime().split("-")[0].trim())));
+        chosenActivities.sort(Comparator.comparing(activity -> {
+            if (activity.getTime().isEmpty()) {
+                return LocalTime.MAX;
+            } else {
+                return LocalTime.parse(activity.getTime().split("-")[0].trim());
+            }
+        }));
         chosenActivitiesTable.refresh();
     }
 
@@ -381,23 +365,43 @@ public class PalawanTest implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void saveToDatabase() {
-        String url = "jdbc:mysql://localhost:3306/test";
+        String url = "jdbc:mysql://localhost:3306/pardist";
         String user = "root";
         String password = "";
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String sql = "INSERT INTO activity (username, activity, time, date) VALUES (?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            for (Activity activity : chosenActivities) {
-                statement.setString(1, username);
-                statement.setString(2, activity.getName());
-                statement.setString(3, activity.getTime());
-                statement.setDate(4, java.sql.Date.valueOf(arrivalDatePicker.getValue()));
-                statement.addBatch();
+            connection.setAutoCommit(false);
+
+            String itinerarySql = "INSERT INTO itinerary (userId, location, hotel, day) VALUES ((SELECT userId FROM users WHERE username = ?), ?, ?, ?)";
+            PreparedStatement itineraryStatement = connection.prepareStatement(itinerarySql, Statement.RETURN_GENERATED_KEYS);
+            itineraryStatement.setString(1, username);
+            itineraryStatement.setString(2, "Palawan");  // Fixed location
+            itineraryStatement.setString(3, hotelComboBox.getValue());
+            itineraryStatement.setDate(4, java.sql.Date.valueOf(arrivalDatePicker.getValue()));
+            itineraryStatement.executeUpdate();
+
+            ResultSet generatedKeys = itineraryStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int itineraryId = generatedKeys.getInt(1);
+
+                String activitySql = "INSERT INTO activity (itinerary_id, name, time, active) VALUES (?, ?, ?, ?)";
+                PreparedStatement activityStatement = connection.prepareStatement(activitySql);
+
+                for (Activity activity : chosenActivities) {
+                    activityStatement.setInt(1, itineraryId);
+                    activityStatement.setString(2, activity.getName());
+                    activityStatement.setString(3, activity.getTime());
+                    activityStatement.setBoolean(4, activity.isActive());
+                    activityStatement.addBatch();
+                }
+
+                activityStatement.executeBatch();
             }
-            statement.executeBatch();
+
+            connection.commit();
             showAlert("Success", "Data saved to the database.");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -423,53 +427,5 @@ public class PalawanTest implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
-    }
-
-    public static class Activity {
-        private final StringProperty name;
-        private final StringProperty time;
-        private final BooleanProperty active;
-
-        public Activity(String name, String time, boolean active) {
-            this.name = new SimpleStringProperty(name);
-            this.time = new SimpleStringProperty(time);
-            this.active = new SimpleBooleanProperty(active);
-        }
-
-        public String getName() {
-            return name.get();
-        }
-
-        public void setName(String name) {
-            this.name.set(name);
-        }
-
-        public StringProperty nameProperty() {
-            return name;
-        }
-
-        public String getTime() {
-            return time.get();
-        }
-
-        public void setTime(String time) {
-            this.time.set(time);
-        }
-
-        public StringProperty timeProperty() {
-            return time;
-        }
-
-        public boolean isActive() {
-            return active.get();
-        }
-
-        public void setActive(boolean active) {
-            this.active.set(active);
-        }
-
-        public BooleanProperty activeProperty() {
-            return active;
-        }
     }
 }
