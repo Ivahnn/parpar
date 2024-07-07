@@ -200,11 +200,13 @@ public class PalawanTest implements Initializable {
 
         mealsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         mealsactivities.addAll(
-                new Activity("Adobo", "", false),
-                new Activity("sinigang", "", false),
-                new Activity("sisig", "", false),
-                new Activity("tinola", "", false),
-                new Activity("pancit", "", false)
+                new Activity("Adobo (BREAKFAST)", "", false),
+                new Activity("sinigang (BREAKFAST)", "", false),
+                new Activity("Sisig (DINNER)", "", false),
+                new Activity("Tinola (DINNER)", "", false),
+                new Activity("Pancit (LUNCH)", "", false),
+                new Activity("CHICKEN (LUNCH)", "", false)
+
         );
         mealsTable.setItems(mealsactivities);
 
@@ -274,7 +276,7 @@ public class PalawanTest implements Initializable {
                 showAlert("Duplicate Activity", "This activity has already been added.");
             }
         } else {
-            showAlert("Missing Information", "Please enter an activity.");
+            showAlert("Missing Information", "Please enter Food.");
         }
     }
 
@@ -357,7 +359,7 @@ public class PalawanTest implements Initializable {
     }
 
     private void playVideo() {
-        String videoPath = getClass().getResource("/images/PALAWAN FRAME.mp4").toExternalForm();
+        String videoPath = getClass().getResource("/images/newvideo.mp4").toExternalForm();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);

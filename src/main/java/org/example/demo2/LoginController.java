@@ -6,7 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,26 +30,31 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
+    private TextField passwordTextField;
+
+    @FXML
+    private CheckBox showPasswordCheckBox;
+
+    @FXML
     private Button loginButton;
 
     @FXML
     void handleLoginButtonClick(ActionEvent event) {
         String username = usernameField.getText().trim();
-        String password = passwordField.getText();
+        String password = showPasswordCheckBox.isSelected() ? passwordTextField.getText() : passwordField.getText();
 
         try {
             if (!isValidCredentials(username, password)) {
-                System.out.println("Incorrect username or password.");
-                return;
+                showAlert("Login Failed", "Incorrect username or password. or Check the Lowercase and Uppercase. Please sign up if you don't have an account. ");                return;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error validating credentials: " + e.getMessage());
+            showAlert("Login Error", "Error validating credentials: " + e.getMessage());
             return;
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/demo2/home-page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
             Parent homePage = loader.load();
 
             HomePageController homepageController = loader.getController();
@@ -60,7 +68,7 @@ public class LoginController {
             Stage loginStage = (Stage) loginButton.getScene().getWindow();
             loginStage.close();
 
-            System.out.println("Login successful!" + username);
+            System.out.println("Login successful! " + username);
         } catch (IOException e) {
             System.err.println("Failed to load home-page.fxml");
             e.printStackTrace();
@@ -72,7 +80,7 @@ public class LoginController {
         String dbUser = "root"; // Adjust this if you have a different MySQL username
         String dbPassword = "";  // Adjust this if you have a MySQL password
 
-        String query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
+        String query = "SELECT COUNT(*) FROM users WHERE BINARY username = ? AND BINARY password = ?";
 
         try (Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -92,6 +100,26 @@ public class LoginController {
         }
     }
 
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void togglePasswordVisibility(ActionEvent event) {
+        if (showPasswordCheckBox.isSelected()) {
+            passwordTextField.setText(passwordField.getText());
+            passwordTextField.setVisible(true);
+            passwordField.setVisible(false);
+        } else {
+            passwordField.setText(passwordTextField.getText());
+            passwordField.setVisible(true);
+            passwordTextField.setVisible(false);
+        }
+    }
 
     public void handleloginLabelClick(javafx.scene.input.MouseEvent event) {
         try {
@@ -102,7 +130,5 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }

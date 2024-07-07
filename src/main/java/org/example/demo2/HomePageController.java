@@ -2,6 +2,7 @@ package org.example.demo2;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,127 +17,111 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 public class HomePageController {
-    private String username;
-    public void setUsername(String username) {
-        this.username = username;
-    }
+   private String username;
 
-    @FXML
-    private ImageView imageView;
+   public void setUsername(String username) {
+      this.username = username;
+      usernameLabel.setText(username);
+   }
 
-    @FXML
-    private Button previousButton;
+   @FXML
+   private ImageView imageView;
 
-    @FXML
-    private Button nextButton;
+   @FXML
+   private Button handleLogoutButtonClick;
 
-    @FXML
-    private Label planNowLabel;
+   @FXML
+   private Label usernameLabel;
 
-    private final Image[] images = {
-            new Image("file:src/main/resources/images/batanes.png"),
-            new Image("file:src/main/resources/images/palawan.png"),
-            new Image("file:src/main/resources/images/baguio.png"),
-            new Image("file:src/main/resources/images/Batangas.png"),
-            new Image("file:src/main/resources/images/Bohol.png"),
-            new Image("file:src/main/resources/images/Siargao.png"),
-    };
-    private int currentIndex = 0;
+   private final Image[] images = {
+           new Image("file:src/main/resources/images/batanes.png"),
+           new Image("file:src/main/resources/images/palawan.png"),
+           new Image("file:src/main/resources/images/baguio.png"),
+           new Image("file:src/main/resources/images/Batangas.png"),
+           new Image("file:src/main/resources/images/Bohol.png"),
+           new Image("file:src/main/resources/images/Siargao.png"),
+   };
+   private int currentIndex = 0;
 
-    @FXML
-    public void initialize() {
-        if (images.length > 0) {
-            imageView.setImage(images[0]);  // Initialize the ImageView with the first image
-        }
+   @FXML
+   public void initialize() {
+      if (images.length > 0) {
+         imageView.setImage(images[0]);  // Initialize the ImageView with the first image
+      }
 
-        // Set up a timeline to change images every 3 seconds
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> nextImage()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
-    private void nextImage() {
-        currentIndex = (currentIndex + 1) % images.length;
-        imageView.setImage(images[currentIndex]);
-    }
+      // Set up a timeline to change images every 3 seconds
+      Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> nextImage()));
+      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.play();
+   }
 
-    @FXML
-    private void handleNextButton() {
-        nextImage();
-    }
+   private void nextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      imageView.setImage(images[currentIndex]);
+   }
 
-    @FXML
-    private void handlePreviousButton() {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        imageView.setImage(images[currentIndex]);
-    }
+   @FXML
+   private void handleNextButton() {
+      nextImage();
+   }
 
-    @FXML
-    private void handleLabelClick(javafx.scene.input.MouseEvent event) {
-        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("plan-now.fxml"));
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//
-//            stage.setScene(new Scene(root));
-//            stage.show();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
-            Parent root = loader.load();
-            CheckoutController checkoutController = loader.getController();
-            checkoutController.setUsername(username);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+   @FXML
+   private void handlePreviousButton() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      imageView.setImage(images[currentIndex]);
+   }
 
-    }
-    @FXML
-    public void handleDestinationLabelClick(javafx.scene.input.MouseEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
-            Parent root = loader.load();
-            destination destinationController = loader.getController();
-            destinationController.setUsername(username); // Pass the username here
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+   @FXML
+   private void handleLabelClick(javafx.scene.input.MouseEvent event) {
+      try {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+         Parent root = loader.load();
+         CheckoutController checkoutController = loader.getController();
+         checkoutController.setUsername(username);
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+         stage.setScene(new Scene(root));
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 
+   @FXML
+   public void handleDestinationLabelClick(javafx.scene.input.MouseEvent event) {
+      try {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("destination.fxml"));
+         Parent root = loader.load();
+         destination destinationController = loader.getController();
+         destinationController.setUsername(username); // Pass the username here
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+         stage.setScene(new Scene(root));
+         stage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 
-    }
+   @FXML
+   public void handleaboutLabelClick(javafx.scene.input.MouseEvent event) {
+      try {
+         Parent root = FXMLLoader.load(getClass().getResource("about.fxml"));
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+         stage.setScene(new Scene(root));
+         stage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 
-    public void handleloginLabelClick(javafx.scene.input.MouseEvent event) {
-//        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            stage.setScene(new Scene(root));
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        System.out.println("Hello, " + username + "!");
-
-    }
-
-    public void handleaboutLabelClick(javafx.scene.input.MouseEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("about.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-
-
-
-
-
-
+   @FXML
+   private void handleLogoutButtonClick(ActionEvent event) {
+      try {
+         Parent loginPage = FXMLLoader.load(getClass().getResource("login.fxml"));
+         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+         stage.setScene(new Scene(loginPage));
+         stage.setTitle("Login");
+         stage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 }
-

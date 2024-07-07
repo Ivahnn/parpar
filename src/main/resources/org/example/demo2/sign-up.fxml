@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -36,6 +37,10 @@
          </cursor>
       </Button>
       <PasswordField fx:id="passwordField" layoutX="58.0" layoutY="386.0" prefHeight="38.0" prefWidth="259.0" promptText="RE-ENTER PASSWORD" />
+      <TextField fx:id="passwordTextField" layoutX="58.0" layoutY="386.0" prefHeight="38.0" prefWidth="259.0" promptText="RE-ENTER PASSWORD" visible="false" />
+      <PasswordField fx:id="signupPasswordField" layoutX="58.0" layoutY="335.0" prefHeight="38.0" prefWidth="259.0" promptText="PASSWORD" />
+      <TextField fx:id="signupPasswordTextField" layoutX="58.0" layoutY="335.0" prefHeight="38.0" prefWidth="259.0" promptText="PASSWORD" visible="false" />
+      <CheckBox fx:id="showPasswordCheckBox" layoutX="58.0" layoutY="430.0" text="Show Password" onAction="#togglePasswordVisibility" />
       <Separator layoutX="407.0" layoutY="-9.0" orientation="VERTICAL" prefHeight="658.0" prefWidth="15.0" />
       <AnchorPane layoutX="415.0" layoutY="-6.0" prefHeight="658.0" prefWidth="605.0" style="-fx-background-color: MIDNIGHTBLUE;">
          <children>
@@ -47,7 +52,6 @@
          </children>
       </AnchorPane>
       <TextField fx:id="emailField" layoutX="57.0" layoutY="282.0" prefHeight="38.0" prefWidth="259.0" promptText="EMAIL" />
-      <PasswordField fx:id="signupPasswordField" layoutX="58.0" layoutY="335.0" prefHeight="38.0" prefWidth="259.0" promptText="PASSWORD" />
       <ImageView fitHeight="98.0" fitWidth="106.0" layoutX="22.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/logo.png" />

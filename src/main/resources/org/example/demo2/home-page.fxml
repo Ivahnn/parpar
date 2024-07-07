@@ -94,7 +94,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <Label layoutX="519.0" layoutY="13.0" prefHeight="27.0"  onMouseClicked="#handleaboutLabelClick" prefWidth="93.0" text="ABOUT US">
+                  <Label layoutX="519.0" layoutY="13.0" onMouseClicked="#handleaboutLabelClick" prefHeight="27.0" prefWidth="93.0" text="ABOUT US">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -130,9 +130,9 @@
                      </cursor></Button>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="369.0" layoutY="31.0" prefHeight="43.0" prefWidth="101.0" style="-fx-background-color: black; -fx-background-radius: 30;">
+            <AnchorPane layoutX="347.0" layoutY="14.0" prefHeight="43.0" prefWidth="101.0" style="-fx-background-color: black; -fx-background-radius: 30;">
                <children>
-                  <Label layoutX="22.0" layoutY="7.0" onMouseClicked="#handleloginLabelClick" prefHeight="18.0" prefWidth="56.0" text="Log in" textFill="WHITE">
+                  <Label fx:id="usernameLabel" layoutX="22.0" layoutY="7.0" prefHeight="28.0" prefWidth="63.0" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="19.0" />
                      </font>
@@ -142,6 +142,15 @@
                   </Label>
                </children>
             </AnchorPane>
+            <!-- Add the logout button here -->
+            <Button layoutX="357.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: red; -fx-text-fill: white;" text="Logout">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </AnchorPane>
    </children>
