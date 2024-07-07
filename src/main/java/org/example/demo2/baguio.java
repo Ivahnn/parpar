@@ -120,8 +120,8 @@ public class baguio implements Initializable {
         executorService.submit(() -> {
             Platform.runLater(() -> {
                 hotelComboBox.getItems().addAll(
-                        "Fundacion Pacita Batanes Nature Lodge", "Pension Ivatan Hometel and Restaurant",
-                        "Bernardo's Hotel", "Batanes Seaside Lodge and Restaurant", "D' Islanders Hotel and Restaurant"
+                        "The Forest Lodge at Camp John Hay","Hotel Elizabeth Baguio","Ridgewood Hotel"
+                        ,"Microtel by Wyndham Baguio","The Orchard Hotel Baguio"
                 );
             });
         });
@@ -339,7 +339,7 @@ public class baguio implements Initializable {
     }
 
     private void playVideo() {
-        String videoPath = getClass().getResource("/images/BAGUIO FRAME.mp4").toExternalForm();
+        String videoPath = getClass().getResource("/images/BAGUIO.mp4").toExternalForm();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);

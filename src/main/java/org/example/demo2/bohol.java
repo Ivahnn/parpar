@@ -344,7 +344,7 @@ public class bohol implements Initializable {
     }
 
     private void playVideo() {
-        String videoPath = getClass().getResource("/images/BOHOL FRAME.mp4").toExternalForm();
+        String videoPath = getClass().getResource("/images/BOHOL.mp4").toExternalForm();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);

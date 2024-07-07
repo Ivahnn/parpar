@@ -8,7 +8,7 @@ module org.example.demo2 {
     requires javafx.graphics;
     requires mysql.connector.j;
     requires java.desktop;
-    requires javafx.web;
+    requires io;
 
 
     opens org.example.demo2 to javafx.fxml;

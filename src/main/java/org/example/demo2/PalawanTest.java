@@ -341,7 +341,7 @@ public class PalawanTest implements Initializable {
     }
 
     private void playVideo() {
-        String videoPath = getClass().getResource("/images/PALAWAN FRAME.mp4").toExternalForm();
+        String videoPath = getClass().getResource("/images/PALAWAN.mp4").toExternalForm();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);

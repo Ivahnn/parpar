@@ -344,7 +344,7 @@ public class batanes implements Initializable {
     }
 
     private void playVideo() {
-        String videoPath = getClass().getResource("/images/BATANES FRAME.mp4").toExternalForm();
+        String videoPath = getClass().getResource("/images/BATANES.mp4").toExternalForm();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);

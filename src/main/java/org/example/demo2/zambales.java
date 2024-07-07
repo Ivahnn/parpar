@@ -338,7 +338,7 @@ public class zambales implements Initializable {
     }
 
     private void playVideo() {
-        String videoPath = getClass().getResource("/images/ZAMBAONGA FRAME.mp4").toExternalForm();
+        String videoPath = getClass().getResource("/images/ZAMBALES.mp4").toExternalForm();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);

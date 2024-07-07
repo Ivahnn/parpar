@@ -147,15 +147,8 @@ public class destination {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("palawan-test.fxml"));
             Parent root = loader.load();
-
-//            palawan palawan = loader.getController();
-//
-//            palawan.setUsername(username);
-
             PalawanTest palawan = loader.getController();
             palawan.setUsername(username);
-
-
             Stage stage = (Stage) palawanImage.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {

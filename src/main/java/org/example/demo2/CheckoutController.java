@@ -1,5 +1,14 @@
 package org.example.demo2;
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.IEventHandler;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.geom.Rectangle;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
@@ -12,6 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.awt.Desktop;
 import java.io.File;
@@ -30,6 +41,9 @@ public class CheckoutController implements Initializable {
 
     @FXML
     private TableView<Itinerary> itineraryTable;
+
+    @FXML
+    private ImageView backButton;
 
     @FXML
     private TableColumn<Itinerary, String> locationColumn;
@@ -57,6 +71,22 @@ public class CheckoutController implements Initializable {
         hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
         activityColumn.setCellValueFactory(new PropertyValueFactory<>("activitySummary"));
         dayColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
+        backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> goBack());
+    }
+
+    private void goBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
+            Parent root = loader.load();
+
+            HomePageController homepageController = loader.getController();
+            homepageController.setUsername(username); // Pass the username to the Homepage controller
+
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadItineraries() {
@@ -121,25 +151,50 @@ public class CheckoutController implements Initializable {
             return;
         }
 
-        String sql = "DELETE FROM itinerary WHERE id = ? AND userId = (SELECT userId FROM users WHERE username = ?)";
+        String deleteActivitiesSql = "DELETE FROM activity WHERE itinerary_id = ?";
+        String deleteItinerarySql = "DELETE FROM itinerary WHERE id = ? AND userId = (SELECT userId FROM users WHERE username = ?)";
 
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        // Add logging to see what we are trying to delete
+        System.out.println("Deleting itinerary with ID: " + selectedItinerary.getId() + " for user: " + username);
 
-            pstmt.setInt(1, selectedItinerary.getId());
-            pstmt.setString(2, username);
+        try (Connection conn = getConnection()) {
+            conn.setAutoCommit(false); // Start transaction
 
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                itineraryTable.getItems().remove(selectedItinerary);
-                showAlert("Success", "Itinerary deleted successfully.");
-            } else {
-                showAlert("Error", "Failed to delete itinerary.");
+            try (PreparedStatement deleteActivitiesStmt = conn.prepareStatement(deleteActivitiesSql);
+                 PreparedStatement deleteItineraryStmt = conn.prepareStatement(deleteItinerarySql)) {
+
+                // Delete dependent activities
+                deleteActivitiesStmt.setInt(1, selectedItinerary.getId());
+                deleteActivitiesStmt.executeUpdate();
+                System.out.println("Associated activities deleted.");
+
+                // Delete the itinerary
+                deleteItineraryStmt.setInt(1, selectedItinerary.getId());
+                deleteItineraryStmt.setString(2, username);
+                int affectedRows = deleteItineraryStmt.executeUpdate();
+
+                if (affectedRows > 0) {
+                    System.out.println("Itinerary deleted successfully.");
+                    itineraryTable.getItems().remove(selectedItinerary);
+                    showAlert("Success", "Itinerary deleted successfully.");
+                    conn.commit(); // Commit transaction
+                } else {
+                    System.out.println("No rows affected. Deletion failed.");
+                    showAlert("Error", "Failed to delete itinerary. Please ensure you are the owner of the itinerary.");
+                    conn.rollback(); // Rollback transaction
+                }
+
+            } catch (SQLException e) {
+                System.err.println("SQL error occurred while deleting the itinerary: " + e.getMessage());
+                showAlert("Error", "An error occurred while deleting the itinerary: " + e.getMessage());
+                conn.rollback(); // Rollback transaction
             }
-
         } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert("Error", "An error occurred while deleting the itinerary.");
+            System.err.println("Error occurred while establishing the database connection: " + e.getMessage());
+            showAlert("Error", "An error occurred while establishing the database connection: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error occurred: " + e.getMessage());
+            showAlert("Error", "An unexpected error occurred: " + e.getMessage());
         }
     }
 
@@ -170,9 +225,16 @@ public class CheckoutController implements Initializable {
             try {
                 String pdfPath = "C:/Users/Ivahnn/Downloads/Itinerary_" + itinerary.getId() + ".pdf";
                 PdfWriter writer = new PdfWriter(pdfPath);
-                com.itextpdf.kernel.pdf.PdfDocument pdfDoc = new com.itextpdf.kernel.pdf.PdfDocument(writer);
+                PdfDocument pdfDoc = new PdfDocument(writer);
+                pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, new HeaderEventHandler(username));
+
                 Document document = new Document(pdfDoc);
 
+                document.add(new Paragraph(""));
+                document.add(new Paragraph(""));
+                document.add(new Paragraph(""));
+                document.add(new Paragraph(""));
+                document.add(new Paragraph(""));
                 document.add(new Paragraph("Travel Plan"));
                 document.add(new Paragraph("Location: " + itinerary.getLocation()));
                 document.add(new Paragraph("Traveler's Name: " + username));
@@ -183,7 +245,6 @@ public class CheckoutController implements Initializable {
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
 
-                // Open the PDF file in the default viewer
                 openPDFInViewer(pdfPath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -194,12 +255,19 @@ public class CheckoutController implements Initializable {
     private void printAllItineraries(ObservableList<Itinerary> itineraries) {
         executorService.submit(() -> {
             try {
-                String pdfPath = "All_Itineraries.pdf";
+                String pdfPath = "C:/Users/Ivahnn/Downloads/All_Itineraries.pdf";
                 PdfWriter writer = new PdfWriter(pdfPath);
-                com.itextpdf.kernel.pdf.PdfDocument pdfDoc = new com.itextpdf.kernel.pdf.PdfDocument(writer);
+                PdfDocument pdfDoc = new PdfDocument(writer);
+                pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, new HeaderEventHandler(username));
+
                 Document document = new Document(pdfDoc);
 
                 for (Itinerary itinerary : itineraries) {
+                    document.add(new Paragraph(""));
+                    document.add(new Paragraph(""));
+                    document.add(new Paragraph(""));
+                    document.add(new Paragraph(""));
+                    document.add(new Paragraph(""));
                     document.add(new Paragraph("Travel Plan"));
                     document.add(new Paragraph("Location: " + itinerary.getLocation()));
                     document.add(new Paragraph("Traveler's Name: " + username));
@@ -212,7 +280,6 @@ public class CheckoutController implements Initializable {
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
 
-                // Open the PDF file in the default viewer
                 openPDFInViewer(pdfPath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -269,5 +336,31 @@ public class CheckoutController implements Initializable {
 
     public void shutdown() {
         executorService.shutdown();
+    }
+
+    private static class HeaderEventHandler implements IEventHandler {
+        private final String username;
+
+        public HeaderEventHandler(String username) {
+            this.username = username;
+        }
+
+        @Override
+
+        public void handleEvent(Event event) {
+            PdfDocumentEvent pdfEvent = (PdfDocumentEvent) event;
+            PdfDocument pdfDoc = pdfEvent.getDocument();
+            PdfPage page = pdfEvent.getPage();
+
+            PdfCanvas canvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+            try {
+                String imagePath = "file:src/main/resources/images/header2.png";
+                ImageData imageData = ImageDataFactory.create(imagePath);
+                canvas.addImage(imageData, 40, page.getPageSize().getTop() - 100, imageData.getWidth(), false);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
