@@ -13,7 +13,6 @@
             <columns>
                 <TableColumn fx:id="locationColumn" text="Location"/>
                 <TableColumn fx:id="hotelColumn" text="Hotel"/>
-                <TableColumn fx:id="attractionColumn" text="Top Attraction"/>
                 <TableColumn fx:id="activityColumn" text="Activity"/>
                 <TableColumn fx:id="dayColumn" text="Day"/>
             </columns>

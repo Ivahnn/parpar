@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,9 +34,6 @@ public class CheckoutController implements Initializable {
 
     @FXML
     private TableColumn<Itinerary, String> hotelColumn;
-
-    @FXML
-    private TableColumn<Itinerary, String> attractionColumn;
 
     @FXML
     private TableColumn<Itinerary, String> activityColumn;
@@ -54,16 +53,17 @@ public class CheckoutController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotel"));
-        attractionColumn.setCellValueFactory(new PropertyValueFactory<>("topAttraction"));
-        activityColumn.setCellValueFactory(new PropertyValueFactory<>("activity"));
+        activityColumn.setCellValueFactory(new PropertyValueFactory<>("activitySummary"));
         dayColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
     }
 
     private void loadItineraries() {
         ObservableList<Itinerary> itineraries = FXCollections.observableArrayList();
 
-        String sql = "SELECT id, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day FROM itinerary " +
-                "WHERE userId = (SELECT userId FROM users WHERE username = ?)";
+        String sql = "SELECT i.id, i.userId, i.location, i.hotel, i.day, a.id AS activity_id, a.name, a.time, a.active " +
+                "FROM itinerary i " +
+                "LEFT JOIN activity a ON i.id = a.itinerary_id " +
+                "WHERE i.userId = (SELECT userId FROM users WHERE username = ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -71,19 +71,37 @@ public class CheckoutController implements Initializable {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
 
+            Itinerary currentItinerary = null;
+            List<Activity> activities = new ArrayList<>();
+
             while (rs.next()) {
-                Itinerary itinerary = new Itinerary(
-                        rs.getInt("id"),
-                        rs.getString("location"),
-                        rs.getString("hotel"),
-                        rs.getString("topAttraction"),
-                        rs.getString("activity"),
-                        rs.getString("breakfast"),
-                        rs.getString("lunch"),
-                        rs.getString("dinner"),
-                        rs.getDate("day").toLocalDate()
-                );
-                itineraries.add(itinerary);
+                int itineraryId = rs.getInt("id");
+                if (currentItinerary == null || currentItinerary.getId() != itineraryId) {
+                    if (currentItinerary != null) {
+                        currentItinerary.setActivities(activities);
+                        itineraries.add(currentItinerary);
+                        activities = new ArrayList<>();
+                    }
+                    currentItinerary = new Itinerary(
+                            itineraryId,
+                            rs.getInt("userId"),
+                            rs.getString("location"),
+                            rs.getString("hotel"),
+                            rs.getDate("day").toLocalDate(),
+                            activities
+                    );
+                }
+                if (rs.getString("activity_id") != null) {
+                    activities.add(new Activity(
+                            rs.getString("name"),
+                            rs.getString("time"),
+                            rs.getBoolean("active")
+                    ));
+                }
+            }
+            if (currentItinerary != null) {
+                currentItinerary.setActivities(activities);
+                itineraries.add(currentItinerary);
             }
 
             itineraryTable.setItems(itineraries);
@@ -158,11 +176,7 @@ public class CheckoutController implements Initializable {
                 document.add(new Paragraph("Traveler's Name: " + username));
                 document.add(new Paragraph("Day: " + itinerary.getDay()));
                 document.add(new Paragraph("Hotel: " + itinerary.getHotel()));
-                document.add(new Paragraph("Top Attraction: " + itinerary.getTopAttraction()));
-                document.add(new Paragraph("Activities: " + itinerary.getActivity()));
-                document.add(new Paragraph("Breakfast: " + itinerary.getBreakfast()));
-                document.add(new Paragraph("Lunch: " + itinerary.getLunch()));
-                document.add(new Paragraph("Dinner: " + itinerary.getDinner()));
+                document.add(new Paragraph("Activities: " + itinerary.getActivitySummary()));
 
                 document.close();
                 System.out.println("PDF created at: " + pdfPath);
@@ -186,12 +200,7 @@ public class CheckoutController implements Initializable {
                     document.add(new Paragraph("Traveler's Name: " + username));
                     document.add(new Paragraph("Day: " + itinerary.getDay()));
                     document.add(new Paragraph("Hotel: " + itinerary.getHotel()));
-                    document.add(new Paragraph("Top Attraction: " + itinerary.getTopAttraction()));
-                    document.add(new Paragraph("Activities: " + itinerary.getActivity()));
-                    document.add(new Paragraph("Breakfast: " + itinerary.getBreakfast()));
-                    document.add(new Paragraph("Lunch: " + itinerary.getLunch()));
-                    document.add(new Paragraph("Dinner: " + itinerary.getDinner()));
-                    document.add(new Paragraph("\n"));
+                    document.add(new Paragraph("Activities: " + itinerary.getActivitySummary()));
                 }
 
                 document.close();

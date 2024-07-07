@@ -181,7 +181,7 @@ public class batangas implements Initializable {
     private void insertItinerary(String username, String location, String hotel, String topAttraction, String activity,
                                  String breakfast, String lunch, String dinner, String duration) {
         String sql = "INSERT INTO itinerary (userId, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day) " +
-                "VALUES ((SELECT userId FROM users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES ((SELECT userId FROM Users WHERE username = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -234,7 +234,6 @@ public class batangas implements Initializable {
         mediaPlayer.play();
     }
 
-    // Shutdown the executor service when done to free up resources
     public void shutdown() {
         executorService.shutdown();
     }

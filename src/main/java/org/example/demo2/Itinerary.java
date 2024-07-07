@@ -1,31 +1,25 @@
 package org.example.demo2;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Itinerary {
     private int id;
     private int userId;
     private String location;
     private String hotel;
-    private String topAttraction;
-    private String activity;
-    private String breakfast;
-    private String lunch;
-    private String dinner;
     private LocalDate day;
+    private List<Activity> activities;
 
     // Constructor
-    public Itinerary(int id, String location, String hotel, String topAttraction, String activity,
-                     String breakfast, String lunch, String dinner, LocalDate day) {
+    public Itinerary(int id, int userId, String location, String hotel, LocalDate day, List<Activity> activities) {
         this.id = id;
+        this.userId = userId;
         this.location = location;
         this.hotel = hotel;
-        this.topAttraction = topAttraction;
-        this.activity = activity;
-        this.breakfast = breakfast;
-        this.lunch = lunch;
-        this.dinner = dinner;
         this.day = day;
+        this.activities = activities;
     }
 
     // Getters and setters
@@ -61,51 +55,26 @@ public class Itinerary {
         this.hotel = hotel;
     }
 
-    public String getTopAttraction() {
-        return topAttraction;
-    }
-
-    public void setTopAttraction(String topAttraction) {
-        this.topAttraction = topAttraction;
-    }
-
-    public String getActivity() {
-        return activity;
-    }
-
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
-
-    public String getBreakfast() {
-        return breakfast;
-    }
-
-    public void setBreakfast(String breakfast) {
-        this.breakfast = breakfast;
-    }
-
-    public String getLunch() {
-        return lunch;
-    }
-
-    public void setLunch(String lunch) {
-        this.lunch = lunch;
-    }
-
-    public String getDinner() {
-        return dinner;
-    }
-
-    public void setDinner(String dinner) {
-        this.dinner = dinner;
-    }
-
     public LocalDate getDay() {
         return day;
     }
 
     public void setDay(LocalDate day) {
         this.day = day;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    // Method to get activity summary
+    public String getActivitySummary() {
+        return activities.stream()
+                .map(activity -> activity.getName() + " (" + activity.getTime() + ")")
+                .collect(Collectors.joining(", "));
     }
 }
