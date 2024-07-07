@@ -60,15 +60,10 @@ public class CheckoutController implements Initializable {
     private void loadItineraries() {
         ObservableList<Itinerary> itineraries = FXCollections.observableArrayList();
 
-<<<<<<< HEAD
         String sql = "SELECT i.id, i.userId, i.location, i.hotel, i.day, a.id AS activity_id, a.name, a.time, a.active " +
                 "FROM itinerary i " +
                 "LEFT JOIN activity a ON i.id = a.itinerary_id " +
                 "WHERE i.userId = (SELECT userId FROM users WHERE username = ?)";
-=======
-        String sql = "SELECT id, location, hotel, topAttraction, activity, breakfast, lunch, dinner, day FROM itinerary " +
-                "WHERE userId = (SELECT userId FROM users WHERE username = ?)";
->>>>>>> 82cef89 (feat: add test palawan for activities)
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
