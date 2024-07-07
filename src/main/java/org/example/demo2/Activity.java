@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package org.example.demo2;
 
 public class Activity {
@@ -36,7 +35,5 @@ public class Activity {
         this.active = active;
     }
 }
-=======
 //package org.example.demo2;public class Activity {
 //}
->>>>>>> 82cef89 (feat: add test palawan for activities)
