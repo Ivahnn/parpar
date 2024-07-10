@@ -120,8 +120,8 @@ public class baguio implements Initializable {
         executorService.submit(() -> {
             Platform.runLater(() -> {
                 hotelComboBox.getItems().addAll(
-                        "The Forest Lodge at Camp John Hay","Hotel Elizabeth Baguio","Ridgewood Hotel"
-                        ,"Microtel by Wyndham Baguio","The Orchard Hotel Baguio"
+                        "The Forest Lodge at Camp John Hay", "Hotel Elizabeth Baguio", "Ridgewood Hotel",
+                        "Microtel by Wyndham Baguio", "The Orchard Hotel Baguio"
                 );
             });
         });
@@ -255,14 +255,19 @@ public class baguio implements Initializable {
                 showAlert("Duplicate Activity", "This activity has already been added.");
             }
         } else {
-            showAlert("Missing Information", "Please enter an activity.");
+            showAlert("Missing Information", "Please enter a food.");
         }
     }
 
     @FXML
     private void handleAddPredefinedActivity() {
         Activity selectedActivity = predefinedActivitiesTable.getSelectionModel().getSelectedItem();
-        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+        if (selectedActivity == null) {
+            showAlert("No Activity Selected", "Please select an activity from the predefined activities table.");
+            return;
+        }
+
+        if (!isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
         }
@@ -271,7 +276,12 @@ public class baguio implements Initializable {
     @FXML
     private void handleAddMealActivity() {
         Activity selectedActivity = mealsTable.getSelectionModel().getSelectedItem();
-        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+        if (selectedActivity == null) {
+            showAlert("No Meal Activity Selected", "Please select a meal activity to add.");
+            return;
+        }
+
+        if (!isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
         }
@@ -366,6 +376,11 @@ public class baguio implements Initializable {
 
     @FXML
     private void saveToDatabase() {
+        if (chosenActivities.isEmpty()) {
+            showAlert("No Activities Selected", "Please add at least one activity before saving.");
+            return;
+        }
+
         // Check if any activity has an empty time
         for (Activity activity : chosenActivities) {
             if (activity.getTime().isEmpty()) {
@@ -381,7 +396,6 @@ public class baguio implements Initializable {
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             connection.setAutoCommit(false);
 
-            // Check if itinerary with the same day already exists for the user
             String checkItinerarySql = "SELECT COUNT(*) FROM itinerary WHERE userId = (SELECT userId FROM users WHERE username = ?) AND day = ?";
             PreparedStatement checkItineraryStmt = connection.prepareStatement(checkItinerarySql);
             checkItineraryStmt.setString(1, username);
@@ -420,6 +434,20 @@ public class baguio implements Initializable {
 
             connection.commit();
             showAlert("Success", "Data saved to the database.");
+
+            // Redirect to checkout.fxml
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) resetButton.getScene().getWindow();
+                stage.setScene(scene);
+                CheckoutController checkoutController = loader.getController();
+                checkoutController.setUsername(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while saving data to the database.");
@@ -435,7 +463,7 @@ public class baguio implements Initializable {
         chosenActivities.clear();
         chosenActivitiesTable.setDisable(true);
         addArrivalButton.setDisable(true);
-        System.out.println("Fields have been reset.");
+        showAlert("Reset", "Fields have been reset.");
     }
 
     private void showAlert(String title, String content) {

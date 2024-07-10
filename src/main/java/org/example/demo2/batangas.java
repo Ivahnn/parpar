@@ -1,8 +1,4 @@
 package org.example.demo2;
-
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,8 +17,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.util.Duration;
-
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -267,7 +261,12 @@ public class batangas implements Initializable {
     @FXML
     private void handleAddPredefinedActivity() {
         Activity selectedActivity = predefinedActivitiesTable.getSelectionModel().getSelectedItem();
-        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+        if (selectedActivity == null) {
+            showAlert("No Activity Selected", "Please select an activity from the predefined activities table.");
+            return;
+        }
+
+        if (!isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
         }
@@ -276,7 +275,12 @@ public class batangas implements Initializable {
     @FXML
     private void handleAddMealActivity() {
         Activity selectedActivity = mealsTable.getSelectionModel().getSelectedItem();
-        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+        if (selectedActivity == null) {
+            showAlert("No Activity Selected", "Please select an activity from the meals section.");
+            return;
+        }
+
+        if (!isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
         }
@@ -371,6 +375,11 @@ public class batangas implements Initializable {
 
     @FXML
     private void saveToDatabase() {
+        if (chosenActivities.isEmpty()) {
+            showAlert("No Activities Selected", "Please add at least one activity before saving.");
+            return;
+        }
+
         for (Activity activity : chosenActivities) {
             if (activity.getTime().isEmpty()) {
                 showAlert("Invalid Activity", "All activities must have a valid time.");
@@ -423,6 +432,17 @@ public class batangas implements Initializable {
 
             connection.commit();
             showAlert("Success", "Data saved to the database.");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) resetButton.getScene().getWindow();
+                stage.setScene(scene);
+                CheckoutController checkoutController = loader.getController();
+                checkoutController.setUsername(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while saving data to the database.");
@@ -438,6 +458,7 @@ public class batangas implements Initializable {
         chosenActivities.clear();
         chosenActivitiesTable.setDisable(true);
         addArrivalButton.setDisable(true);
+        showAlert("Reset", "Fields have been reset.");
     }
 
     private void showAlert(String title, String content) {

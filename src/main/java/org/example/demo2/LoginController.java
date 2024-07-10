@@ -43,9 +43,15 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = showPasswordCheckBox.isSelected() ? passwordTextField.getText() : passwordField.getText();
 
+        if (username.isEmpty() || password.isEmpty()) {
+            showAlert("Input Required", "You need to fill up both username and password fields.");
+            return;
+        }
+
         try {
             if (!isValidCredentials(username, password)) {
-                showAlert("Login Failed", "Incorrect username or password. or Check the Lowercase and Uppercase. Please sign up if you don't have an account. ");                return;
+                showAlert("Login Failed", "Incorrect username or password. or Check the Lowercase and Uppercase. Please sign up if you don't have an account.");
+                return;
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -264,6 +264,8 @@ public class palawan implements Initializable {
         if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
+        } else {
+            showAlert("No Activity Selected", "Please select an activity from the predefined activities table.");
         }
     }
 
@@ -273,6 +275,8 @@ public class palawan implements Initializable {
         if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
+        } else {
+            showAlert("No Activity Selected", "Please select an activity from the meals table.");
         }
     }
 
@@ -417,6 +421,17 @@ public class palawan implements Initializable {
 
             connection.commit();
             showAlert("Success", "Data saved to the database.");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) resetButton.getScene().getWindow();
+                stage.setScene(scene);
+                CheckoutController checkoutController = loader.getController();
+                checkoutController.setUsername(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while saving data to the database.");
@@ -433,6 +448,7 @@ public class palawan implements Initializable {
         chosenActivitiesTable.setDisable(true);
         addArrivalButton.setDisable(true);
         System.out.println("Fields have been reset.");
+        showAlert("Reset Fields", "All fields have been reset.");
     }
 
     private void showAlert(String title, String content) {

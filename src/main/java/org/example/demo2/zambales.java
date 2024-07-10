@@ -264,6 +264,8 @@ public class zambales implements Initializable {
         if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
+        } else {
+            showAlert("No Activity Selected", "Please select an activity to add.");
         }
     }
 
@@ -273,6 +275,8 @@ public class zambales implements Initializable {
         if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
+        } else {
+            showAlert("No Meal Activity Selected", "Please select a meal activity to add.");
         }
     }
 
@@ -365,6 +369,11 @@ public class zambales implements Initializable {
 
     @FXML
     private void saveToDatabase() {
+        if (chosenActivities.isEmpty()) {
+            showAlert("No Activities Chosen", "Please add some activities before saving.");
+            return;
+        }
+
         for (Activity activity : chosenActivities) {
             if (activity.getTime().isEmpty()) {
                 showAlert("Invalid Activity", "All activities must have a valid time.");
@@ -417,6 +426,17 @@ public class zambales implements Initializable {
 
             connection.commit();
             showAlert("Success", "Data saved to the database.");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) resetButton.getScene().getWindow();
+                stage.setScene(scene);
+                CheckoutController checkoutController = loader.getController();
+                checkoutController.setUsername(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while saving data to the database.");
@@ -432,7 +452,7 @@ public class zambales implements Initializable {
         chosenActivities.clear();
         chosenActivitiesTable.setDisable(true);
         addArrivalButton.setDisable(true);
-        System.out.println("Fields have been reset.");
+        showAlert("Fields Reset", "All fields have been reset.");
     }
 
     private void showAlert(String title, String content) {

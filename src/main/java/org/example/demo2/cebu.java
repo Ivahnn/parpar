@@ -267,7 +267,12 @@ public class cebu implements Initializable {
     @FXML
     private void handleAddPredefinedActivity() {
         Activity selectedActivity = predefinedActivitiesTable.getSelectionModel().getSelectedItem();
-        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+        if (selectedActivity == null) {
+            showAlert("No Activity Selected", "Please select an activity from the predefined activities table.");
+            return;
+        }
+
+        if (!isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
         }
@@ -276,7 +281,12 @@ public class cebu implements Initializable {
     @FXML
     private void handleAddMealActivity() {
         Activity selectedActivity = mealsTable.getSelectionModel().getSelectedItem();
-        if (selectedActivity != null && !isDuplicateActivity(selectedActivity.getName())) {
+        if (selectedActivity == null) {
+            showAlert("No Activity Selected", "Please select an activity from the meals section.");
+            return;
+        }
+
+        if (!isDuplicateActivity(selectedActivity.getName())) {
             chosenActivities.add(new Activity(selectedActivity.getName(), "", false));
             sortActivitiesByTime();
         }
@@ -371,6 +381,11 @@ public class cebu implements Initializable {
 
     @FXML
     private void saveToDatabase() {
+        if (chosenActivities.isEmpty()) {
+            showAlert("No Activities Selected", "Please add at least one activity before saving.");
+            return;
+        }
+
         for (Activity activity : chosenActivities) {
             if (activity.getTime().isEmpty()) {
                 showAlert("Invalid Activity", "All activities must have a valid time.");
@@ -423,6 +438,17 @@ public class cebu implements Initializable {
 
             connection.commit();
             showAlert("Success", "Data saved to the database.");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("checkout.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) resetButton.getScene().getWindow();
+                stage.setScene(scene);
+                CheckoutController checkoutController = loader.getController();
+                checkoutController.setUsername(username);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while saving data to the database.");
@@ -438,6 +464,7 @@ public class cebu implements Initializable {
         chosenActivities.clear();
         chosenActivitiesTable.setDisable(true);
         addArrivalButton.setDisable(true);
+        showAlert("Reset", "Fields have been reset.");
     }
 
     private void showAlert(String title, String content) {
